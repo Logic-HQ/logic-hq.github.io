@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Logic HQ</title>
+    <link>https://logic-hq.github.io/</link>
+    <description>Here, I share my insights on deep technical discovery, scope definition, and establishing architectural foundations for diverse projects.</description>
+    <language>en-us</language>
+
+    <!-- Copy and repeat this <item> block for every new article -->
+    <item>
+      <title>Welcome to the Kafka challenges & their solutions</title>
+      <link>https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&-their-solutions</link>
+      <pubDate>Sun, 10 Sep 2026 12:00:00 GMT</pubDate>
+      <guid>https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&-their-solutions</guid>
+      <description>A deep dive into transactional producers, consumer coordinate configurations, and processing guarantees.</description>
+    </item>
+
+  </channel>
+</rss>
