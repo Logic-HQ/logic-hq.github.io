@@ -6,7 +6,7 @@
     <description>Here, I share my insights on deep technical discovery, scope definition, and establishing architectural foundations for diverse projects.</description>
     <language>en-us</language>
 
-    <!-- Copy and repeat this <item> block for every new article -->
+    
     <item>
       <title>Welcome to the Kafka challenges &amp; their solutions</title>
       <link>https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&amp;-their-solutions</link>
