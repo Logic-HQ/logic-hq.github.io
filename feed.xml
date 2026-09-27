@@ -8,7 +8,7 @@
 
     <!-- Copy and repeat this <item> block for every new article -->
     <item>
-      <title>Welcome to the Kafka challenges & their solutions</title>
+      <title>Welcome to the Kafka challenges &amp; their solutions</title>
       <link>https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&-their-solutions</link>
       <pubDate>Sun, 10 Sep 2026 12:00:00 GMT</pubDate>
       <guid>https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&-their-solutions</guid>
