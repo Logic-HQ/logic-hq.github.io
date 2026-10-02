@@ -1,0 +1,1 @@
+import{r}from"public/static/js/react-dom-D8Vk-fN-2.js";import"public/static/js/react-Dd1pKoqe3.js";var t={},a,e,o=r;e=t.createRoot=o.createRoot,a=t.hydrateRoot=o.hydrateRoot;export{e as createRoot,t as default,a as hydrateRoot};

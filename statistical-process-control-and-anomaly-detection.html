@@ -11,438 +11,625 @@
    <meta name="enable-onep-api" content="false">
     
 <script src="https://www.gstatic.com/external_hosted/chartjs/Chart.min.js"></script>
-<script src="https://www.gstatic.com/vertexaisearch/thirdparty/chartjs-plugin-datalabels_min.2.2.0.js">
+<script src="https://www.gstatic.com/vertexaisearch/thirdparty/chartjs-plugin-datalabels_min.2.2.0.js"></script>
 
-</script>
+<!-- <script src="public/static/js/widget-spc.js" defer></script> -->
 
-  <style>
-    /* =========================
-       CSS Variables (Theming)
-       ========================= */
-    :root {
-      --bg: #ffffff;
-      --bg-elev: #f7f7f9;
-      --text: #1b1f24;
-      --text-muted: #5f6771;
-      --border: #e5e7eb;
-      --accent: #2f81f7;
-      --accent-contrast: #ffffff;
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      --radius: 12px;
-      --container-max: 960px;
-      --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-    }
+ <script
+      data-sandbox-injected="true">(function () {
+            var g = Object.defineProperty, k = globalThis, l = function (a, b) { if (b) a: { var c = k; a = a.split("."); for (var d = 0; d < a.length - 1; d++) { var e = a[d]; if (!(e in c)) break a; c = c[e] } a = a[a.length - 1]; d = c[a]; b = b(d); b != d && b != null && g(c, a, { configurable: !0, writable: !0, value: b }) } }; l("Promise.withResolvers", function (a) { return a ? a : function () { var b, c; return { promise: new Promise(function (d, e) { b = d; c = e }), resolve: b, reject: c } } }); var m = function (a) { return typeof a === "object" && a !== null && "kind" in a && typeof a.kind === "string" && ("payload" in a || a.kind === "___CROSS_FRAME_HANDSHAKE___") }, n = class { constructor() { this.j = new Map } i(a) { var b = a.data; if (m(b)) { let c = b.payload; if (b = this.j.get(b.kind)) (a = a.ports && a.ports.length > 0 ? a.ports : void 0) ? b(c, a) : b(c) } } sendMessage(a, b, c) { if (!this.port) throw Error("a"); a = { kind: String(a), payload: b || {} }; c && c.length > 0 ? this.port.postMessage(a, c) : this.port.postMessage(a) } }, p = async function (a) {
+               var b = window.parent;
+               return a.h ? {} : new Promise(c => { var d = e => { e.source === b && m(e.data) && e.data.kind === "___CROSS_FRAME_HANDSHAKE___" && (window.removeEventListener("message", d), a.port = e.ports[0], a.port.onmessage = a.i.bind(a), a.h = !0, c(e.data.payload || {})) }; window.addEventListener("message", d) })
+            }, q = class extends n { constructor() { super(...arguments); this.h = !1 } }; if (typeof window !== "undefined" && window.history) { let a = window.history.replaceState.bind(window.history); window.history.replaceState = (c, d, e) => { try { a(c, d, e) } catch { } }; let b = window.history.pushState.bind(window.history); window.history.pushState = (c, d, e) => { try { b(c, d, e) } catch { } } }
+            if (typeof window !== "undefined" && window.fetch) { let a = window.fetch.bind(window); window.fetch = async (...b) => { try { return await a(...b) } catch (c) { b = b[0]; b = typeof b === "string" ? b : b && typeof b === "object" && "url" in b ? String(b.url || "") : String(b || ""); if (b.includes("tracking") || b.includes("analytics") || b.includes("beacon")) return new Response(null, { status: 204 }); throw c; } } } var { promise: r, resolve: t } = Promise.withResolvers(), { promise: u, resolve: v } = Promise.withResolvers(), w = !1;
+            (async function () { var a = new q, b = await p(a); b && b.enableSandboxToEditorSync && (w = !!b.enableSandboxToEditorSync); if (b && b.initialPayload) { let c = b.initialPayload; window.initialPayload = c; window.setTimeout(() => { window.dispatchEvent(new MessageEvent("message", { data: c })) }, 0) } t(a); (a = a.port) && v(a) })(); function x(a) { r.then(b => { b.sendMessage("ERROR", { error: a }) }) } window.onerror = (a, b, c, d, e) => { x(e); return !0 };
+            window.onunhandledrejection = a => { var b = String(a.reason || ""); b.includes("Failed to fetch") || b.includes("Content Security Policy") || b.includes("replaceState") || x(Error(a.reason)); a.preventDefault() };
+            window.document.addEventListener("DOMContentLoaded", () => {
+               r.then(a => {
+                  a.sendMessage("ISOLATE_READY", {}); var b = window.document.querySelector("#resize-target") || window.document.body, c = NaN, d = NaN, e = !1; (new ResizeObserver(() => { e || (e = !0, window.requestAnimationFrame(() => { e = !1; var f = Math.ceil(b.scrollHeight), h = Math.ceil(b.scrollWidth); f === c && h === d || f === 0 && h === 0 || (c = f, d = h, a.sendMessage("RESIZE", { height: f, width: h })) })) })).observe(b); if (w) {
+                     let f; (new MutationObserver(() => {
+                        f && window.clearTimeout(f); f = window.setTimeout(() => { f = void 0; a.sendMessage("HTML_CHANGED", { html: "<!DOCTYPE html>\n" + window.document.documentElement.outerHTML }) }, 500)
+                     })).observe(window.document.documentElement, { attributes: !0, childList: !0, subtree: !0, characterData: !0 })
+                  }
+               })
+            }); window.addEventListener("resizeRequest", () => { r.then(a => { var b = window.document.querySelector("#resize-target") || window.document.body, c = Math.ceil(b.scrollHeight); b = Math.ceil(b.scrollWidth); c === 0 && b === 0 || a.sendMessage("MANUAL_RESIZE", { height: c, width: b }) }) });
+            function y(a) { var b = null; a instanceof Element ? b = a : a && a.nodeType === Node.TEXT_NODE && (b = a.parentElement); if (!b) return null; for (a = b; a && a !== window.document.body;) { if (a.matches('a,button,input,textarea,select,option,details,summary,area,[jsaction],[data-jsaction],[role],[tabindex]:not([tabindex="-1"])')) return z(a); if (a instanceof HTMLElement && a.isContentEditable) return z(a); a = a.parentElement } return null }
+            function z(a) { var b = { tagName: a.tagName.toUpperCase(), attributes: {} }, c = ["role", "jsaction", "data-jsaction", "tabindex"]; for (let d of c) c = a.getAttribute(d), c !== null && (b.attributes[d] = c); a instanceof HTMLElement && a.isContentEditable && (b.isContentEditable = !0); return b } window.addEventListener("click", a => { var b = (a = a.target) ? y(a) : null; r.then(c => { c.sendMessage("CLICK", { matchedNode: b }) }) }, !0);
+            window.addEventListener("request_window_open", a => { var b = a.detail; r.then(c => { c.sendMessage("REQUEST_WINDOW_OPEN", { url: b.url, hostname: b.hostname, target: b.target, features: b.features, skipConfirmation: b.skipConfirmation }) }) }); window.sandboxConsoleLog = (a, b) => { r.then(c => { c.sendMessage("CONSOLE_LOG", { logLevel: a, message: b }) }) }; if (document.querySelector('meta[name="enable-onep-api"]')?.getAttribute("content") === "true") { let a = !1; window.claimPortReady = () => { if (a) return null; a = !0; return u } } window.logError = x;
+         }).call(this);</script>
+   <!-- <script>
+   (function () {
+         function f(b) { return ["https://www.google.com/maps/", "https://maps.google.com/", "https://www.youtube.com/watch?v=", "https://www.youtube.com/v/", "https://youtu.be/"].some(a => b.startsWith(a)) } window.open = (b, a, d) => { var c, e = !1; if (b) try { if (c = b instanceof URL ? b.toString() : String(b)) { var g = (new URL(c, window.location.href)).hostname; e = f(c) } } catch (h) { } window.dispatchEvent(new CustomEvent("request_window_open", { detail: { url: c, hostname: g, target: a, features: d, h: e } })); return null };
+         window.addEventListener("click", b => { var a = b.target.closest("a"); if (a && a.getAttribute("target") === "_blank" && a.hasAttribute("href")) { a = a.getAttribute("href"); let d, c = !1; try { d = (new URL(a, window.location.href)).hostname, c = f(a) } catch (e) { } b.preventDefault(); b.stopPropagation(); window.dispatchEvent(new CustomEvent("request_window_open", { detail: { url: a, hostname: d, target: "_blank", h: c } })) } }, !0);
+      }).call(this);
+      </script> -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <title>Generated Interactive Widget</title>
+   <script type="module" crossorigin="">
+      import { jsx, jsxs } from 'https://widgetlibs.static.usercontent.goog/react/jsx-runtime-Dc9ViRTo.js';
+      import React, { useState, useRef, useEffect, useMemo } from 'https://widgetlibs.static.usercontent.goog/react-Dd1pKoqe.js';
+      import ReactDOM from 'https://widgetlibs.static.usercontent.goog/react-dom/client-BTuQ-l8_.js';
+      import { ErrorBoundary } from 'https://widgetlibs.static.usercontent.goog/react-error-boundary-BY2GTZrN.js';
+      import * as d3 from 'https://widgetlibs.static.usercontent.goog/d3-DQOLej2x.js';
+      import * as Slider from 'https://widgetlibs.static.usercontent.goog/@radix-ui/react-slider-DXk-CvUR.js';
 
-    :root[data-theme="dark"] {
-      --bg: #0d1117;
-      --bg-elev: #161b22;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --border: #30363d;
-      --accent: #58a6ff;
-      --accent-contrast: #0d1117;
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    }
+      true && (function polyfill() {
+         const relList = document.createElement("link").relList;
+         if (relList && relList.supports && relList.supports("modulepreload")) return;
+         for (const link of document.querySelectorAll("link[rel=\"modulepreload\"]")) processPreload(link);
+         new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+               if (mutation.type !== "childList") continue;
+               for (const node of mutation.addedNodes) if (node.tagName === "LINK" && node.rel === "modulepreload") processPreload(node);
+            }
+         }).observe(document, {
+            childList: true,
+            subtree: true
+         });
+         function getFetchOpts(link) {
+            const fetchOpts = {};
+            if (link.integrity) fetchOpts.integrity = link.integrity;
+            if (link.referrerPolicy) fetchOpts.referrerPolicy = link.referrerPolicy;
+            if (link.crossOrigin === "use-credentials") fetchOpts.credentials = "include";
+            else if (link.crossOrigin === "anonymous") fetchOpts.credentials = "omit";
+            else fetchOpts.credentials = "same-origin";
+            return fetchOpts;
+         }
+         function processPreload(link) {
+            if (link.ep) return;
+            link.ep = true;
+            const fetchOpts = getFetchOpts(link);
+            fetch(link.href, fetchOpts);
+         }
+      }());
 
-    /* =========================
-       Base Styles
-       ========================= */
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      border-radius: var(--radius);
-    }
-
-    code, pre {
-      font-family: var(--font-mono);
-      font-size: 0.9em;
-    }
-
-    pre {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      overflow: auto;
-    }
-
-    /* =========================
-       Layout
-       ========================= */
-    .container {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    header.site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.9rem 0;
-    }
-
-    .site-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .site-title a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    nav.main-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 1rem;
-    }
-
-    nav.main-nav a {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    nav.main-nav a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* Theme toggle */
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1px solid var(--border);
-      background: var(--bg-elev);
-      color: var(--text);
-      padding: 0.4rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .theme-toggle:hover {
-      border-color: var(--accent);
-    }
-
-    .theme-toggle .icon {
-      width: 1.1em;
-      height: 1.1em;
-      display: inline-block;
-    }
-
-    /* =========================
-       Hero / Intro
-       ========================= */
-    .hero {
-      padding: 2.5rem 0 1.5rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin: 0 0 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      margin: 0;
-      max-width: 60ch;
-    }
-
-    /* =========================
-       Posts Grid
-       ========================= */
-    .posts {
-      padding: 1rem 0 3rem;
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .post-card {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .post-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      border-color: var(--accent);
-    }
-
-    .post-card .post-image {
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, var(--bg-elev), var(--bg));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .post-card .post-content {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      flex: 1;
-    }
-
-    .post-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .post-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.35;
-    }
-
-    .post-title a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .post-excerpt {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin: 0;
-      flex: 1;
-    }
-
-    .post-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: auto;
-    }
-
-    /* =========================
-       Footer
-       ========================= */
-    footer.site-footer {
-      max-height: 3rem;
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 0 2.5rem;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* =========================
-       Responsive tweaks
-       ========================= */
-    @media (max-width: 640px) {
-      .header-inner {
-        flex-wrap: wrap;
-        gap: 0.6rem;
+      function ErrorFallback({ error }) {
+         return /* @__PURE__ */ jsxs("div", {
+            className: "p-5 text-error bg-card rounded-xl border border-border", children: [
+    /* @__PURE__ */ jsx("p", { className: "text-sm font-medium", children: "Something went wrong:" }),
+    /* @__PURE__ */ jsx("pre", { className: "text-xs mt-1 whitespace-pre-wrap", children: error.message })
+            ]
+         });
+      }
+      function App() {
+         return /* @__PURE__ */ jsx(ErrorBoundary, { FallbackComponent: ErrorFallback, children: /* @__PURE__ */ jsx(SPCWidget, {}) });
+      }
+      function SPCWidget() {
+         const [isPlaying, setIsPlaying] = useState(true);
+         const [windowSize, setWindowSize] = useState(30);
+         const [processShift, setProcessShift] = useState(0);
+         const [streamMode, setStreamMode] = useState("standard");
+         const [dataPoints, setDataPoints] = useState([]);
+         const [lateQueue, setLateQueue] = useState([]);
+         const [width, setWidth] = useState(800);
+         const containerRef = useRef(null);
+         const height = width * 0.48;
+         const isPlayingRef = useRef(isPlaying);
+         useEffect(() => {
+            isPlayingRef.current = isPlaying;
+         }, [isPlaying]);
+         useEffect(() => {
+            if (!containerRef.current) return;
+            const resizeObserver = new ResizeObserver((entries) => {
+               for (let entry of entries) {
+                  if (entry.contentRect.width) {
+                     setWidth(Math.max(entry.contentRect.width, 360));
+                  }
+               }
+            });
+            resizeObserver.observe(containerRef.current);
+            return () => resizeObserver.disconnect();
+         }, []);
+         useEffect(() => {
+            const initialPoints = [];
+            const baseMean = 50;
+            const baseStd = 5;
+            let timeStampOffset = Date.now() - 6e4;
+            for (let i = 0; i < 60; i++) {
+               const randValue = baseMean + (Math.random() - 0.5) * 20;
+               initialPoints.push({
+                  id: i,
+                  timestamp: timeStampOffset + i * 1e3,
+                  value: randValue,
+                  isLate: false,
+                  isAnomaly: false,
+                  mean: baseMean,
+                  ucl: baseMean + 3 * baseStd,
+                  lcl: baseMean - 3 * baseStd
+               });
+            }
+            for (let i = 5; i < initialPoints.length; i++) {
+               const windowStart = Math.max(0, i - windowSize);
+               const subset = initialPoints.slice(windowStart, i + 1).map((d) => d.value);
+               const m = d3.mean(subset) ?? baseMean;
+               const deviation = d3.deviation(subset) ?? baseStd;
+               initialPoints[i].mean = m;
+               initialPoints[i].ucl = m + 3 * deviation;
+               initialPoints[i].lcl = m - 3 * deviation;
+               if (initialPoints[i].value > initialPoints[i].ucl || initialPoints[i].value < initialPoints[i].lcl) {
+                  initialPoints[i].isAnomaly = true;
+               }
+            }
+            setDataPoints(initialPoints);
+         }, []);
+         const lastTickTime = useRef(Date.now());
+         const nextPointId = useRef(100);
+         useEffect(() => {
+            let animationFrameId;
+            const tick = () => {
+               if (!isPlayingRef.current) {
+                  animationFrameId = requestAnimationFrame(tick);
+                  return;
+               }
+               const now = Date.now();
+               const delta = now - lastTickTime.current;
+               setLateQueue((prevQueue) => {
+                  return prevQueue.map((item) => ({ ...item, progress: item.progress + 0.015 })).filter((item) => {
+                     if (item.progress >= 1) {
+                        setDataPoints((prevPoints) => {
+                           const newPoint = {
+                              id: item.id,
+                              timestamp: item.targetTimestamp,
+                              value: item.value,
+                              isLate: true,
+                              isAnomaly: false,
+                              mean: 50,
+                              ucl: 65,
+                              lcl: 35
+                           };
+                           const updated = [...prevPoints, newPoint].sort((a, b) => a.timestamp - b.timestamp);
+                           for (let k = 1; k < updated.length; k++) {
+                              const subset = updated.slice(Math.max(0, k - windowSize), k + 1).map((d) => d.value);
+                              const m = d3.mean(subset) ?? 50;
+                              const dev = d3.deviation(subset) ?? 4;
+                              updated[k].mean = m;
+                              updated[k].ucl = m + 3 * dev;
+                              updated[k].lcl = m - 3 * dev;
+                              if (updated[k].value > updated[k].ucl || updated[k].value < updated[k].lcl) {
+                                 updated[k].isAnomaly = true;
+                              } else {
+                                 updated[k].isAnomaly = false;
+                              }
+                           }
+                           return updated.slice(-120);
+                        });
+                        return false;
+                     }
+                     return true;
+                  });
+               });
+               if (delta >= 1e3) {
+                  lastTickTime.current = now;
+                  nextPointId.current += 1;
+                  let noiseFactor = streamMode === "jitter" ? 18 : 10;
+                  let anomalyChance = streamMode === "drift" ? 0.25 : 0.06;
+                  let driftValue = 0;
+                  if (streamMode === "drift") {
+                     driftValue = Math.sin(now / 4e3) * 12;
+                  }
+                  const isTriggeredAnomaly = Math.random() < anomalyChance;
+                  const anomalyOffset = isTriggeredAnomaly ? Math.random() > 0.5 ? 18 : -18 : 0;
+                  const rawValue = 50 + processShift + driftValue + (Math.random() - 0.5) * noiseFactor + anomalyOffset;
+                  if (streamMode === "jitter" && Math.random() < 0.22 && dataPoints.length > 20) {
+                     const pastTargetIndex = Math.max(5, dataPoints.length - Math.floor(Math.random() * 12) - 2);
+                     const targetTime = dataPoints[pastTargetIndex]?.timestamp ?? now;
+                     setLateQueue((prev) => [
+                        ...prev,
+                        {
+                           id: nextPointId.current * 10,
+                           targetTimestamp: targetTime + 200,
+                           value: 50 + (Math.random() - 0.5) * 22,
+                           progress: 0
+                        }
+                     ]);
+                  }
+                  setDataPoints((prevPoints) => {
+                     const updatedPoints = [...prevPoints];
+                     const newElement = {
+                        id: nextPointId.current,
+                        timestamp: now,
+                        value: rawValue,
+                        isLate: false,
+                        isAnomaly: false,
+                        mean: 50,
+                        ucl: 65,
+                        lcl: 35
+                     };
+                     updatedPoints.push(newElement);
+                     const currentWindow = updatedPoints.slice(-windowSize);
+                     const values = currentWindow.map((d) => d.value);
+                     const computedMean = d3.mean(values) || 50;
+                     const computedStd = d3.deviation(values) || 3;
+                     const lastIdx = updatedPoints.length - 1;
+                     updatedPoints[lastIdx].mean = computedMean;
+                     updatedPoints[lastIdx].ucl = computedMean + 3 * computedStd;
+                     updatedPoints[lastIdx].lcl = computedMean - 3 * computedStd;
+                     if (rawValue > updatedPoints[lastIdx].ucl || rawValue < updatedPoints[lastIdx].lcl) {
+                        updatedPoints[lastIdx].isAnomaly = true;
+                     }
+                     return updatedPoints.slice(-100);
+                  });
+               }
+               animationFrameId = requestAnimationFrame(tick);
+            };
+            animationFrameId = requestAnimationFrame(tick);
+            return () => cancelAnimationFrame(animationFrameId);
+         }, [windowSize, processShift, streamMode, dataPoints.length]);
+         const metrics = useMemo(() => {
+            if (dataPoints.length === 0) return { mean: 50, std: 0, anomalies: 0 };
+            const last = dataPoints[dataPoints.length - 1];
+            const anomaliesCount = dataPoints.filter((d) => d.isAnomaly).length;
+            const subset = dataPoints.slice(-windowSize).map((d) => d.value);
+            const calculatedStd = d3.deviation(subset) ?? 0;
+            return {
+               mean: last.mean,
+               std: calculatedStd,
+               anomalies: anomaliesCount
+            };
+         }, [dataPoints, windowSize]);
+         const padding = { top: 40, right: 75, bottom: 35, left: 55 };
+         const xScale = useMemo(() => {
+            if (dataPoints.length === 0) return d3.scaleLinear().domain([0, 100]).range([padding.left, width - padding.right]);
+            return d3.scaleLinear().domain(d3.extent(dataPoints, (d) => d.timestamp)).range([padding.left, width - padding.right]);
+         }, [dataPoints, width]);
+         const yScale = useMemo(() => {
+            return d3.scaleLinear().domain([15, 85]).range([height - padding.bottom, padding.top]);
+         }, [height]);
+         const sensorLinePath = useMemo(() => {
+            if (dataPoints.length === 0) return "";
+            const lineGen = d3.line().x((d) => xScale(d.timestamp)).y((d) => yScale(d.value)).defined((d) => Number.isFinite(d.value));
+            return lineGen(dataPoints) ?? "";
+         }, [dataPoints, xScale, yScale]);
+         const meanLinePath = useMemo(() => {
+            if (dataPoints.length === 0) return "";
+            const lineGen = d3.line().x((d) => xScale(d.timestamp)).y((d) => yScale(d.mean)).defined((d) => Number.isFinite(d.mean));
+            return lineGen(dataPoints) ?? "";
+         }, [dataPoints, xScale, yScale]);
+         const uclLinePath = useMemo(() => {
+            if (dataPoints.length === 0) return "";
+            const lineGen = d3.line().x((d) => xScale(d.timestamp)).y((d) => yScale(d.ucl)).defined((d) => Number.isFinite(d.ucl));
+            return lineGen(dataPoints) ?? "";
+         }, [dataPoints, xScale, yScale]);
+         const lclLinePath = useMemo(() => {
+            if (dataPoints.length === 0) return "";
+            const lineGen = d3.line().x((d) => xScale(d.timestamp)).y((d) => yScale(d.lcl)).defined((d) => Number.isFinite(d.lcl));
+            return lineGen(dataPoints) ?? "";
+         }, [dataPoints, xScale, yScale]);
+         const areaShadingPath = useMemo(() => {
+            if (dataPoints.length === 0) return "";
+            const areaGen = d3.area().x((d) => xScale(d.timestamp)).y0((d) => yScale(d.lcl)).y1((d) => yScale(d.ucl)).defined((d) => Number.isFinite(d.ucl) && Number.isFinite(d.lcl));
+            return areaGen(dataPoints) ?? "";
+         }, [dataPoints, xScale, yScale]);
+         const latestMeta = useMemo(() => {
+            if (dataPoints.length === 0) return { ucl: 65, lcl: 35, mean: 50 };
+            return dataPoints[dataPoints.length - 1];
+         }, [dataPoints]);
+         return /* @__PURE__ */ jsxs("div", {
+            ref: containerRef, className: "w-full bg-card text-foreground select-none font-sans flex flex-col overflow-hidden", children: [
+    /* @__PURE__ */ jsxs("div", {
+               className: "relative w-full overflow-hidden border-b border-border bg-[#0d1117]", children: [
+      /* @__PURE__ */ jsx("div", {
+                  className: "absolute top-0 right-0 p-3 z-10 flex items-center justify-end pointer-events-none", children: /* @__PURE__ */ jsx(
+                     "button",
+                     {
+                        onClick: () => setIsPlaying(!isPlaying),
+                        className: "w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-none bg-muted/90 hover:bg-secondary-hover text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary pointer-events-auto relative overflow-visible after:absolute after:-inset-1",
+                        "aria-label": isPlaying ? "Pause animation" : "Play animation",
+                        children: /* @__PURE__ */ jsx("span", { className: "material-icons !text-base", children: isPlaying ? "pause" : "play_arrow" })
+                     }
+                  )
+               }),
+      /* @__PURE__ */ jsx(
+                  "div",
+                  {
+                     className: "absolute bg-[#0d1117]/60 text-emerald-400 rounded px-1.5 py-0.5 text-xs font-medium pointer-events-none",
+                     style: { left: padding.left + 8, top: padding.top - 20 },
+                     children: "Live Stream"
+                  }
+               ),
+      /* @__PURE__ */ jsxs(
+                  "svg",
+                  {
+                     role: "img",
+                     "aria-label": "Interactive streaming statistical process control panel chart displaying dynamic moving control limits and anomaly flags.",
+                     viewBox: `0 0 ${width} ${height}`,
+                     className: "w-full block",
+                     children: [
+            /* @__PURE__ */ jsxs("g", {
+                        stroke: "rgba(255, 255, 255, 0.07)", strokeWidth: 1, children: [
+              /* @__PURE__ */ jsx("line", { x1: padding.left, y1: yScale(30), x2: width - padding.right, y2: yScale(30) }),
+              /* @__PURE__ */ jsx("line", { x1: padding.left, y1: yScale(50), x2: width - padding.right, y2: yScale(50) }),
+              /* @__PURE__ */ jsx("line", { x1: padding.left, y1: yScale(70), x2: width - padding.right, y2: yScale(70) })
+                        ]
+                     }),
+                        areaShadingPath && /* @__PURE__ */ jsx(
+                           "path",
+                           {
+                              d: areaShadingPath,
+                              fill: "rgba(234, 67, 53, 0.05)",
+                              className: "transition-all duration-300"
+                           }
+                        ),
+                        uclLinePath && /* @__PURE__ */ jsx(
+                           "path",
+                           {
+                              d: uclLinePath,
+                              fill: "none",
+                              stroke: "#ea4335",
+                              strokeWidth: 1.5,
+                              strokeDasharray: "4 4",
+                              opacity: 0.8
+                           }
+                        ),
+                        lclLinePath && /* @__PURE__ */ jsx(
+                           "path",
+                           {
+                              d: lclLinePath,
+                              fill: "none",
+                              stroke: "#ea4335",
+                              strokeWidth: 1.5,
+                              strokeDasharray: "4 4",
+                              opacity: 0.8
+                           }
+                        ),
+                        meanLinePath && /* @__PURE__ */ jsx(
+                           "path",
+                           {
+                              d: meanLinePath,
+                              fill: "none",
+                              stroke: "#336ef3",
+                              strokeWidth: 1.8,
+                              opacity: 0.85
+                           }
+                        ),
+                        sensorLinePath && /* @__PURE__ */ jsx(
+                           "path",
+                           {
+                              d: sensorLinePath,
+                              fill: "none",
+                              stroke: "#00f5d4",
+                              strokeWidth: 2
+                           }
+                        ),
+                        dataPoints.map((pt, idx) => {
+                           const cx = xScale(pt.timestamp);
+                           const cy = yScale(pt.value);
+                           if (cx < padding.left || cx > width - padding.right) return null;
+                           if (pt.isAnomaly) {
+                              return /* @__PURE__ */ jsxs("g", {
+                                 children: [
+                  /* @__PURE__ */ jsx("circle", { cx, cy, r: 7, fill: "#ea4335", opacity: 0.3, className: "animate-ping" }),
+                  /* @__PURE__ */ jsx("circle", { cx, cy, r: 4.5, fill: "#ea4335", stroke: "#ffffff", strokeWidth: 1 })
+                                 ]
+                              }, `anomaly-${pt.id}-${idx}`);
+                           }
+                           if (idx === dataPoints.length - 1) {
+                              return /* @__PURE__ */ jsx("circle", { cx, cy, r: 4, fill: "#00f5d4", stroke: "#ffffff", strokeWidth: 1.5 }, `latest-${pt.id}`);
+                           }
+                           if (pt.isLate) {
+                              return /* @__PURE__ */ jsx("circle", { cx, cy, r: 3.5, fill: "#b5179e", stroke: "#ffffff", strokeWidth: 0.5 }, `late-node-${pt.id}`);
+                           }
+                           return null;
+                        }),
+                        lateQueue.map((item) => {
+                           const startX = width - padding.right - 20;
+                           const startY = padding.top + 20;
+                           const targetX = xScale(item.targetTimestamp);
+                           const targetY = yScale(item.value);
+                           const currentX = startX + (targetX - startX) * item.progress;
+                           const currentY = startY + (targetY - startY) * item.progress;
+                           return /* @__PURE__ */ jsxs("g", {
+                              children: [
+                /* @__PURE__ */ jsx(
+                                 "line",
+                                 {
+                                    x1: startX,
+                                    y1: startY,
+                                    x2: targetX,
+                                    y2: targetY,
+                                    stroke: "#b5179e",
+                                    strokeDasharray: "2 3",
+                                    strokeWidth: 1,
+                                    opacity: 0.4
+                                 }
+                              ),
+                /* @__PURE__ */ jsx(
+                                 "circle",
+                                 {
+                                    cx: currentX,
+                                    cy: currentY,
+                                    r: 5,
+                                    fill: "#b5179e",
+                                    stroke: "#ffffff",
+                                    strokeWidth: 1
+                                 }
+                              )
+                              ]
+                           }, `queue-item-${item.id}`);
+                        }),
+            /* @__PURE__ */ jsxs("g", {
+                           fill: "rgba(255, 255, 255, 0.6)", fontSize: 11, textAnchor: "start", children: [
+              /* @__PURE__ */ jsxs("text", {
+                              x: width - padding.right + 8, y: yScale(latestMeta.ucl) + 4, fill: "#ea4335", children: [
+                                 "UCL: ",
+                                 latestMeta.ucl.toFixed(1)
+                              ]
+                           }),
+              /* @__PURE__ */ jsxs("text", {
+                              x: width - padding.right + 8, y: yScale(latestMeta.mean) + 4, fill: "#336ef3", children: [
+                                 "CL: ",
+                                 latestMeta.mean.toFixed(1)
+                              ]
+                           }),
+              /* @__PURE__ */ jsxs("text", {
+                              x: width - padding.right + 8, y: yScale(latestMeta.lcl) + 4, fill: "#ea4335", children: [
+                                 "LCL: ",
+                                 latestMeta.lcl.toFixed(1)
+                              ]
+                           }),
+              /* @__PURE__ */ jsx("text", { x: padding.left - 36, y: yScale(70) + 4, textAnchor: "end", children: "70.0" }),
+              /* @__PURE__ */ jsx("text", { x: padding.left - 36, y: yScale(50) + 4, textAnchor: "end", children: "50.0" }),
+              /* @__PURE__ */ jsx("text", { x: padding.left - 36, y: yScale(30) + 4, textAnchor: "end", children: "30.0" })
+                           ]
+                        })
+                     ]
+                  }
+               )
+               ]
+            }),
+    /* @__PURE__ */ jsxs("div", {
+               className: "flex items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-12 border-b border-border px-5 py-3 shrink-0", children: [
+      /* @__PURE__ */ jsxs("div", {
+                  className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "Process Mean" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: metrics.mean.toFixed(2) })
+                  ]
+               }),
+      /* @__PURE__ */ jsxs("div", {
+                  className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "Dispersion (σ)" }),
+        /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums truncate text-center w-full", children: metrics.std.toFixed(2) })
+                  ]
+               }),
+      /* @__PURE__ */ jsxs("div", {
+                  className: "flex flex-col items-center gap-0.5 min-w-0 flex-1", children: [
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-muted-foreground font-medium truncate text-center w-full", children: "Anomalies" }),
+        /* @__PURE__ */ jsx("span", { className: `text-sm font-medium tabular-nums truncate text-center w-full ${metrics.anomalies > 0 ? "text-error" : "text-success"}`, children: metrics.anomalies })
+                  ]
+               })
+               ]
+            }),
+    /* @__PURE__ */ jsxs("div", {
+               className: "p-5 flex flex-col gap-5", children: [
+      /* @__PURE__ */ jsxs("div", {
+                  className: "grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4", children: [
+        /* @__PURE__ */ jsxs("div", {
+                     className: "flex flex-col gap-1.5 w-full", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-sm font-medium text-muted-foreground", children: "Moving Window Size" }),
+          /* @__PURE__ */ jsxs("div", {
+                        className: "flex items-center gap-3 w-full", children: [
+            /* @__PURE__ */ jsxs(
+                           Slider.Root,
+                           {
+                              className: "relative flex items-center grow touch-none select-none h-11 cursor-pointer py-3 -my-3",
+                              value: [windowSize],
+                              onValueChange: (val) => setWindowSize(val[0]),
+                              min: 15,
+                              max: 50,
+                              step: 1,
+                              "aria-label": "Adjust Moving Window size constraint",
+                              children: [
+                  /* @__PURE__ */ jsx(Slider.Track, { className: "relative grow rounded-full h-1 !bg-muted", children: /* @__PURE__ */ jsx(Slider.Range, { className: "absolute h-full bg-primary rounded-full" }) }),
+                  /* @__PURE__ */ jsx(
+                                 Slider.Thumb,
+                                 {
+                                    className: "block w-[18px] h-[18px] rounded-full bg-primary border-none shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-11 after:h-11",
+                                    "aria-label": "Moving window thumb slider handle"
+                                 }
+                              )
+                              ]
+                           }
+                        ),
+            /* @__PURE__ */ jsxs("span", {
+                           className: "text-sm font-medium text-foreground tabular-nums w-[6ch] text-right shrink-0 whitespace-nowrap", children: [
+                              windowSize,
+                              " pts"
+                           ]
+                        })
+                        ]
+                     })
+                     ]
+                  }),
+        /* @__PURE__ */ jsxs("div", {
+                     className: "flex flex-col gap-1.5 w-full", children: [
+          /* @__PURE__ */ jsx("label", { className: "text-sm font-medium text-muted-foreground", children: "Simulate Process Mean Shift" }),
+          /* @__PURE__ */ jsxs("div", {
+                        className: "flex items-center gap-3 w-full", children: [
+            /* @__PURE__ */ jsxs(
+                           Slider.Root,
+                           {
+                              className: "relative flex items-center grow touch-none select-none h-11 cursor-pointer py-3 -my-3",
+                              value: [processShift],
+                              onValueChange: (val) => setProcessShift(val[0]),
+                              min: -15,
+                              max: 15,
+                              step: 0.5,
+                              "aria-label": "Simulate artificial process mean shift offset",
+                              children: [
+                  /* @__PURE__ */ jsx(Slider.Track, { className: "relative grow rounded-full h-1 !bg-muted", children: /* @__PURE__ */ jsx(Slider.Range, { className: "absolute h-full bg-primary rounded-full" }) }),
+                  /* @__PURE__ */ jsx(
+                                 Slider.Thumb,
+                                 {
+                                    className: "block w-[18px] h-[18px] rounded-full bg-primary border-none shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-11 after:h-11",
+                                    "aria-label": "Process mean shift thumb handle"
+                                 }
+                              )
+                              ]
+                           }
+                        ),
+            /* @__PURE__ */ jsx("span", { className: "text-sm font-medium text-foreground tabular-nums w-[6ch] text-right shrink-0 whitespace-nowrap", children: processShift > 0 ? `+${processShift.toFixed(1)}` : processShift.toFixed(1) })
+                        ]
+                     })
+                     ]
+                  })
+                  ]
+               }),
+      /* @__PURE__ */ jsxs("div", {
+                  className: "flex flex-col gap-1.5", children: [
+        /* @__PURE__ */ jsx("label", { className: "text-sm font-medium text-muted-foreground", children: "Data Stream Simulation Scenario" }),
+        /* @__PURE__ */ jsxs("div", {
+                     className: "relative h-9 rounded-lg bg-muted px-3 flex items-center", children: [
+          /* @__PURE__ */ jsxs(
+                        "select",
+                        {
+                           value: streamMode,
+                           onChange: (e) => setStreamMode(e.target.value),
+                           className: "absolute inset-x-0 top-1/2 -translate-y-1/2 h-11 w-full opacity-0 cursor-pointer pointer-events-auto text-sm",
+                           "aria-label": "Select streaming statistical scenario mode",
+                           children: [
+                /* @__PURE__ */ jsx("option", { value: "standard", children: "Standard IoT Stream (Controlled Variance)" }),
+                /* @__PURE__ */ jsx("option", { value: "jitter", children: "Late Arrival & Jitter Injections (Out of Order Queue)" }),
+                /* @__PURE__ */ jsx("option", { value: "drift", children: "Cyclical Process Drift (Dynamic Control Limits Adaptation)" })
+                           ]
+                        }
+                     ),
+          /* @__PURE__ */ jsxs("span", {
+                        className: "text-sm font-medium text-foreground truncate", children: [
+                           streamMode === "standard" && "Standard IoT Stream (Controlled Variance)",
+                           streamMode === "jitter" && "Late Arrival & Jitter Injections (Out of Order Queue)",
+                           streamMode === "drift" && "Cyclical Process Drift (Dynamic Control Limits Adaptation)"
+                        ]
+                     }),
+          /* @__PURE__ */ jsx("span", { className: "material-icons absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none !text-base", children: "expand_more" })
+                     ]
+                  })
+                  ]
+               })
+               ]
+            })
+            ]
+         });
       }
 
-      nav.main-nav ul {
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
+      ReactDOM.createRoot(document.getElementById("root")).render(
+  /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(App, {}) })
+      );
 
-      .hero {
-        padding-top: 1.5rem;
-      }
-    }
- 
-      .chart-container-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .chart-header {
-        white-space: pre-wrap;
-        word-break: break-word;
-        display: none;
-        padding: 16px 16px 0 16px;
-        flex-shrink: 0;
-        font-size: 16px;
-        font-weight: bold;
-        color: #E8E8E8;
-        font-family: 'Google Sans', Roboto, Arial, sans-serif;
-      }
-      #chart-container {
-        
-        flex-grow: 1;
-        min-height: 0;
-        
-        position: relative;
-        padding: 8px 16px 16px 16px;
-        box-sizing: border-box;
-      }
-      canvas {
-        width: 100% !important;
-        height: 100% !important;
-      }
-    </style>
+   </script>
 
-<style>
-        
-        .art-body {
-            max-width: 1012px;
-            margin: 0 auto;
-            padding: 45px;
-            /* border: 1px solid #d0d7de; */
-            border: 1px solid var(--border);
-            border-radius: 6px;
-        }
-        h2 {
-            font-size: 1.5em;
-            font-weight: 600;
-            padding-bottom: 0.3em;
-            border-bottom: 1px solid #hsla(210,18%,87%,1);
-            margin-top: 24px;
-            margin-bottom: 16px;
-        }
-        h3 {
-            font-size: 1.25em;
-            font-weight: 600;
-            margin-top: 24px;
-            margin-bottom: 16px;
-            display: inline;
-        }
-        p {
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-        ul {
-            padding-left: 2em;
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-        li {
-            margin-top: 0.25em;
-        }
-        li + li {
-            margin-top: 0.25em;
-        }
-        code {
-            padding: 0.2em 0.4em;
-            margin: 0;
-            font-size: 85%;
-            white-space: break-spaces;
-            background-color: rgba(175,184,193,0.2);
-            border-radius: 6px;
-            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-        }
-        img {
-            max-width: 100%;
-            box-sizing: content-box;
-            /* background-color: #ffffff; */
-        }
-        details {
-            display: block;
-            padding: 16px;
-            margin-bottom: 16px;
-            /* background-color: #f6f8fa; */
-            border: 1px solid var(--border);
-            border-radius: 6px;
-        }
-        details summary {
-            cursor: pointer;
-            font-weight: 600;
-            list-style: none;
-        }
-        details summary::-webkit-details-marker {
-            display: none;
-        }
-        details summary::before {
-            content: "► ";
-            font-size: 0.8em;
-            color: #57606a;
-            margin-right: 4px;
-        }
-        details[open] summary::before {
-            content: "▼ ";
-        }
-        details[open] summary {
-            margin-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-        }
-        .highlight {
-            font-weight: 600;
-        }
-    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="public/static/css/main.css">
+<link rel="stylesheet" href="public/static/css/widget_spc.css">
+
     <!-- MathJax for rendering LaTeX formulas -->
     <!-- <script src="https://polyfill.io"></script>
     <script id="MathJax-script" async src="https://jsdelivr.net"></script>
@@ -487,12 +674,8 @@
       <p>
 Here, I share my insights on deep technical discovery, scope definition, and establishing architectural foundations for diverse projects.
 </p>
-      </section>
 
 
-
-
-<div class="art-body">
     <h2>Domain Use Cases</h2>
     <ul>
         <li><span class="highlight">Natural Fit for SPC:</span> Statistical Process Control was literally invented for manufacturing and industrial processes. SPC relies on continuous, normally distributed variables (like temperature, vibration, pressure, or voltage). Calculating running averages, standard deviations, and control limits (like Western Electric Rules) makes perfect sense here.</li>
@@ -501,9 +684,134 @@ Here, I share my insights on deep technical discovery, scope definition, and est
         <li>pipelines to monitor assembly line robotics or wind turbine health.</li>
     </ul>
 
-    <p align="center">
-        <img src="https://github.com/Logic-HQ/sentinel-stream-spc/blob/main/docs/img/streaming-windows.gif" alt="streaming-windows">
-    </p>
+      </section>
+
+
+
+<div class="art-body">
+   <div id="root" align="center">
+      <div class="w-full bg-card text-foreground select-none font-sans flex flex-col overflow-hidden">
+         <div class="relative w-full overflow-hidden border-b border-border bg-[#0d1117]">
+            <div class="absolute top-0 right-0 p-3 z-10 flex items-center justify-end pointer-events-none"><button
+                  class="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-none bg-muted/90 hover:bg-secondary-hover text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary pointer-events-auto relative overflow-visible after:absolute after:-inset-1"
+                  aria-label="Play animation"><span class="material-icons !text-base">play_arrow</span></button></div>
+            <div
+               class="absolute bg-[#0d1117]/60 text-emerald-400 rounded px-1.5 py-0.5 text-xs font-medium pointer-events-none"
+               style="left: 63px; top: 20px;">Live Stream</div><svg role="img"
+               aria-label="Interactive streaming statistical process control panel chart displaying dynamic moving control limits and anomaly flags."
+               viewBox="0 0 652 312.96" class="w-full block">
+               <g stroke="rgba(255, 255, 255, 0.07)" stroke-width="1">
+                  <line x1="55" y1="226.9685714285714" x2="577" y2="226.9685714285714"></line>
+                  <line x1="55" y1="158.98" x2="577" y2="158.98"></line>
+                  <line x1="55" y1="90.99142857142857" x2="577" y2="90.99142857142857"></line>
+               </g>
+               <path
+                  d="M55,109.333L56.505,110.463L58.011,111.549L59.516,112.688L61.022,114.099L62.527,112.785L64.033,111.24L65.538,110.797L67.044,112.043L68.549,113.097L70.055,113.449L71.56,111.442L73.066,111.888L74.571,112.874L76.077,113.582L77.582,112.785L79.087,112.23L80.593,112.169L82.098,110.791L83.604,111.324L85.109,108.222L86.615,107.202L88.12,105.323L89.626,102.661L91.131,100.335L92.637,100.539L94.142,100.561L95.648,101.394L97.153,101.942L98.659,101.327L100.164,101.505L101.67,101.413L103.175,101.769L104.68,99.305L106.186,99.36L107.691,95.985L109.197,96.859L110.702,97.315L112.208,97.809L113.713,97.847L115.219,97.882L116.724,97.4L118.23,98.574L119.735,99.171L121.241,97.991L122.746,95.768L127.71,96.177L133.736,96.61L145.777,97.688L170.213,99.777L218.388,102.642L314.741,104.651L505.307,107.359L506.835,110.77L508.342,114.958L509.847,114.957L511.353,114.762L512.858,114.474L514.365,114.415L516.571,116.031L518.077,116.192L519.584,116.361L521.114,116.148L522.619,114.614L524.125,114.238L525.632,120.148L527.137,119.449L528.667,119.987L530.174,121.72L531.703,119.728L533.21,120.075L534.716,120.969L536.245,120.659L537.751,120.633L539.256,121.414L540.763,123.658L542.269,124.4L543.774,124.663L545.28,124.788L546.787,125.412L548.292,125.887L549.822,125.892L551.329,123.738L552.834,123.573L554.365,121.883L555.871,121.611L557.376,121.484L558.882,122.736L560.387,123.177L561.894,123.281L563.4,123.303L564.929,123.25L566.435,123.339L567.94,131.237L569.447,122.557L570.977,121.316L572.484,122.252L573.989,122.251L575.495,122.461L577,124.182L577,202.474L575.495,203.397L573.989,203.95L572.484,203.882L570.977,203.757L569.447,203.376L567.94,190.957L566.435,201.753L564.929,202.005L563.4,201.381L561.894,201.183L560.387,201.557L558.882,201.672L557.376,202.156L555.871,202.141L554.365,201.068L552.834,200.635L551.329,200.665L549.822,199.659L548.292,199.766L546.787,198.698L545.28,199.038L543.774,198.793L542.269,199.506L540.763,198.637L539.256,203.065L537.751,204.812L536.245,204.705L534.716,204.547L533.21,205.034L531.703,205.168L530.174,204.325L528.667,203.962L527.137,205.287L525.632,205.15L524.125,208.672L522.619,208.797L521.114,202.004L519.584,200.832L518.077,200.537L516.571,201.079L514.365,203.667L512.858,205.102L511.353,204.98L509.847,205.229L508.342,205.516L506.835,207.371L505.307,208.781L314.741,209.69L218.388,213.184L170.213,214.519L145.777,215.55L133.736,215.423L127.71,216.244L122.746,215.345L121.241,210.932L119.735,208.615L118.23,209.734L116.724,210.06L115.219,210.069L113.713,211.409L112.208,211.734L110.702,214.828L109.197,212.777L107.691,212.519L106.186,211.519L104.68,211.173L103.175,211.779L101.67,213.244L100.164,213.903L98.659,214.352L97.153,211.108L95.648,209.556L94.142,209.804L92.637,209.899L91.131,210.397L89.626,211.179L88.12,209.969L86.615,208.974L85.109,207.476L83.604,205.77L82.098,206.144L80.593,205.802L79.087,205.702L77.582,206.19L76.077,206.572L74.571,207.501L73.066,208.223L71.56,207.323L70.055,207.128L68.549,208.183L67.044,208.352L65.538,209.191L64.033,206.448L62.527,206.785L61.022,207.306L59.516,208.58L58.011,210.195L56.505,209.367L55,208.427Z"
+                  fill="rgba(234, 67, 53, 0.05)" class="transition-all duration-300"></path>
+               <path
+                  d="M55,109.333L56.505,110.463L58.011,111.549L59.516,112.688L61.022,114.099L62.527,112.785L64.033,111.24L65.538,110.797L67.044,112.043L68.549,113.097L70.055,113.449L71.56,111.442L73.066,111.888L74.571,112.874L76.077,113.582L77.582,112.785L79.087,112.23L80.593,112.169L82.098,110.791L83.604,111.324L85.109,108.222L86.615,107.202L88.12,105.323L89.626,102.661L91.131,100.335L92.637,100.539L94.142,100.561L95.648,101.394L97.153,101.942L98.659,101.327L100.164,101.505L101.67,101.413L103.175,101.769L104.68,99.305L106.186,99.36L107.691,95.985L109.197,96.859L110.702,97.315L112.208,97.809L113.713,97.847L115.219,97.882L116.724,97.4L118.23,98.574L119.735,99.171L121.241,97.991L122.746,95.768L127.71,96.177L133.736,96.61L145.777,97.688L170.213,99.777L218.388,102.642L314.741,104.651L505.307,107.359L506.835,110.77L508.342,114.958L509.847,114.957L511.353,114.762L512.858,114.474L514.365,114.415L516.571,116.031L518.077,116.192L519.584,116.361L521.114,116.148L522.619,114.614L524.125,114.238L525.632,120.148L527.137,119.449L528.667,119.987L530.174,121.72L531.703,119.728L533.21,120.075L534.716,120.969L536.245,120.659L537.751,120.633L539.256,121.414L540.763,123.658L542.269,124.4L543.774,124.663L545.28,124.788L546.787,125.412L548.292,125.887L549.822,125.892L551.329,123.738L552.834,123.573L554.365,121.883L555.871,121.611L557.376,121.484L558.882,122.736L560.387,123.177L561.894,123.281L563.4,123.303L564.929,123.25L566.435,123.339L567.94,131.237L569.447,122.557L570.977,121.316L572.484,122.252L573.989,122.251L575.495,122.461L577,124.182"
+                  fill="none" stroke="#ea4335" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.8"></path>
+               <path
+                  d="M55,208.427L56.505,209.367L58.011,210.195L59.516,208.58L61.022,207.306L62.527,206.785L64.033,206.448L65.538,209.191L67.044,208.352L68.549,208.183L70.055,207.128L71.56,207.323L73.066,208.223L74.571,207.501L76.077,206.572L77.582,206.19L79.087,205.702L80.593,205.802L82.098,206.144L83.604,205.77L85.109,207.476L86.615,208.974L88.12,209.969L89.626,211.179L91.131,210.397L92.637,209.899L94.142,209.804L95.648,209.556L97.153,211.108L98.659,214.352L100.164,213.903L101.67,213.244L103.175,211.779L104.68,211.173L106.186,211.519L107.691,212.519L109.197,212.777L110.702,214.828L112.208,211.734L113.713,211.409L115.219,210.069L116.724,210.06L118.23,209.734L119.735,208.615L121.241,210.932L122.746,215.345L127.71,216.244L133.736,215.423L145.777,215.55L170.213,214.519L218.388,213.184L314.741,209.69L505.307,208.781L506.835,207.371L508.342,205.516L509.847,205.229L511.353,204.98L512.858,205.102L514.365,203.667L516.571,201.079L518.077,200.537L519.584,200.832L521.114,202.004L522.619,208.797L524.125,208.672L525.632,205.15L527.137,205.287L528.667,203.962L530.174,204.325L531.703,205.168L533.21,205.034L534.716,204.547L536.245,204.705L537.751,204.812L539.256,203.065L540.763,198.637L542.269,199.506L543.774,198.793L545.28,199.038L546.787,198.698L548.292,199.766L549.822,199.659L551.329,200.665L552.834,200.635L554.365,201.068L555.871,202.141L557.376,202.156L558.882,201.672L560.387,201.557L561.894,201.183L563.4,201.381L564.929,202.005L566.435,201.753L567.94,190.957L569.447,203.376L570.977,203.757L572.484,203.882L573.989,203.95L575.495,203.397L577,202.474"
+                  fill="none" stroke="#ea4335" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.8"></path>
+               <path
+                  d="M55,158.88L56.505,159.915L58.011,160.872L59.516,160.634L61.022,160.702L62.527,159.785L64.033,158.844L65.538,159.994L67.044,160.197L68.549,160.64L70.055,160.288L71.56,159.382L73.066,160.056L74.571,160.187L76.077,160.077L77.582,159.487L79.087,158.966L80.593,158.986L82.098,158.468L83.604,158.547L85.109,157.849L86.615,158.088L88.12,157.646L89.626,156.92L91.131,155.366L92.637,155.219L94.142,155.183L95.648,155.475L97.153,156.525L98.659,157.84L100.164,157.704L101.67,157.328L103.175,156.774L104.68,155.239L106.186,155.44L107.691,154.252L109.197,154.818L110.702,156.071L112.208,154.771L113.713,154.628L115.219,153.976L116.724,153.73L118.23,154.154L119.735,153.893L121.241,154.461L122.746,155.556L127.71,156.211L133.736,156.016L145.777,156.619L170.213,157.148L218.388,157.913L314.741,157.171L505.307,158.07L506.835,159.07L508.342,160.237L509.847,160.093L511.353,159.871L512.858,159.788L514.365,159.041L516.571,158.555L518.077,158.364L519.584,158.596L521.114,159.076L522.619,161.705L524.125,161.455L525.632,162.649L527.137,162.368L528.667,161.975L530.174,163.022L531.703,162.448L533.21,162.555L534.716,162.758L536.245,162.682L537.751,162.723L539.256,162.24L540.763,161.147L542.269,161.953L543.774,161.728L545.28,161.913L546.787,162.055L548.292,162.826L549.822,162.775L551.329,162.202L552.834,162.104L554.365,161.475L555.871,161.876L557.376,161.82L558.882,162.204L560.387,162.367L561.894,162.232L563.4,162.342L564.929,162.627L566.435,162.546L567.94,161.097L569.447,162.966L570.977,162.536L572.484,163.067L573.989,163.101L575.495,162.929L577,163.328"
+                  fill="none" stroke="#336ef3" stroke-width="1.8" opacity="0.85"></path>
+               <path
+                  d="M55,167.88L56.505,175.44L58.011,176.182L59.516,156.591L61.022,161.932L62.527,142.36L64.033,140.01L65.538,184.157L67.044,164.669L68.549,170.812L70.055,151.857L71.56,136.728L73.066,177.563L74.571,163.747L76.077,156.985L77.582,142.388L79.087,143.324L80.593,179.735L82.098,142.263L83.604,130.537L85.109,129.446L86.615,190.138L88.12,132.985L89.626,130.75L91.131,129.14L92.637,167.164L94.142,163.9L95.648,149.045L97.153,175.069L98.659,186.324L100.164,169.708L101.67,156.231L103.175,158.246L104.68,128.608L106.186,162.804L107.691,125.113L109.197,159.91L110.702,178.869L112.208,143.857L113.713,160.222L115.219,150.59L116.724,144.225L118.23,149.883L119.735,169.473L121.241,181.371L122.746,190.923L127.71,149.787L133.736,173.909L145.777,160.334L170.213,146.413L218.388,152.389L314.741,167.878L505.307,159.96L506.835,160.76L508.342,164.132L509.847,162.865L511.353,157.235L512.858,146.562L514.365,152.654L516.571,171.738L518.077,163.991L519.584,163.188L521.114,172.636L522.619,207.484L524.125,155.293L525.632,160.943L527.137,151.472L528.667,167.073L530.174,175.289L531.703,142.984L533.21,153.796L534.716,150.321L536.245,147.617L537.751,170.687L539.256,166.874L540.763,158.158L542.269,173.947L543.774,167.169L545.28,165.885L546.787,150.676L548.292,175.527L549.822,166.35L551.329,142.743L552.834,157.829L554.365,145.276L555.871,174.886L557.376,155.548L558.882,158.083L560.387,157.554L561.894,167.68L563.4,167.284L564.929,171.762L566.435,170.186L567.94,164.028L569.447,211.368L570.977,148.034L572.484,167.398L573.989,168.086L575.495,170.131L577,154.956"
+                  fill="none" stroke="#00f5d4" stroke-width="2"></path>
+               <g>
+                  <circle cx="569.4470663559596" cy="211.36790464669699" r="7" fill="#ea4335" opacity="0.3"
+                     class="animate-ping"></circle>
+                  <circle cx="569.4470663559596" cy="211.36790464669699" r="4.5" fill="#ea4335" stroke="#ffffff"
+                     stroke-width="1"></circle>
+               </g>
+               <circle cx="577" cy="154.95578806926287" r="4" fill="#00f5d4" stroke="#ffffff" stroke-width="1.5">
+               </circle>
+               <g fill="rgba(255, 255, 255, 0.6)" font-size="11" text-anchor="start"><text x="585"
+                     y="128.18182848916138" fill="#ea4335">UCL: 60.2</text><text x="585" y="167.32797108388112"
+                     fill="#336ef3">CL: 48.7</text><text x="585" y="206.4741136786009" fill="#ea4335">LCL:
+                     37.2</text><text x="19" y="94.99142857142857" text-anchor="end">70.0</text><text x="19" y="162.98"
+                     text-anchor="end">50.0</text><text x="19" y="230.9685714285714" text-anchor="end">30.0</text></g>
+            </svg>
+         </div>
+         <div
+            class="flex items-center justify-center gap-x-4 sm:gap-x-8 md:gap-x-12 border-b border-border px-5 py-3 shrink-0">
+            <div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span
+                  class="text-xs text-muted-foreground font-medium truncate text-center w-full">Process Mean</span><span
+                  class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">48.72</span>
+            </div>
+            <div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span
+                  class="text-xs text-muted-foreground font-medium truncate text-center w-full">Dispersion
+                  (σ)</span><span
+                  class="text-sm font-medium text-foreground tabular-nums truncate text-center w-full">3.84</span></div>
+            <div class="flex flex-col items-center gap-0.5 min-w-0 flex-1"><span
+                  class="text-xs text-muted-foreground font-medium truncate text-center w-full">Anomalies</span><span
+                  class="text-sm font-medium tabular-nums truncate text-center w-full text-error">1</span></div>
+         </div>
+         <div class="p-5 flex flex-col gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+               <div class="flex flex-col gap-1.5 w-full"><label class="text-sm font-medium text-muted-foreground">Moving
+                     Window Size</label>
+                  <div class="flex items-center gap-3 w-full"><span dir="ltr" data-orientation="horizontal"
+                        aria-disabled="false"
+                        class="relative flex items-center grow touch-none select-none h-11 cursor-pointer py-3 -my-3"
+                        aria-label="Adjust Moving Window size constraint"
+                        style="--radix-slider-thumb-transform: translateX(-50%);"><span data-orientation="horizontal"
+                           class="relative grow rounded-full h-1 !bg-muted"><span data-orientation="horizontal"
+                              class="absolute h-full bg-primary rounded-full"
+                              style="left: 0%; right: 57.1429%;"></span></span><span
+                           style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(42.8571% + 1.28571px);"><span
+                              role="slider" aria-label="Moving window thumb slider handle" aria-valuemin="15"
+                              aria-valuemax="50" aria-orientation="horizontal" data-orientation="horizontal"
+                              tabindex="0"
+                              class="block w-[18px] h-[18px] rounded-full bg-primary border-none shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-11 after:h-11"
+                              style="" data-radix-collection-item="" aria-valuenow="30"></span></span></span><span
+                        class="text-sm font-medium text-foreground tabular-nums w-[6ch] text-right shrink-0 whitespace-nowrap">30
+                        pts</span></div>
+               </div>
+               <div class="flex flex-col gap-1.5 w-full"><label
+                     class="text-sm font-medium text-muted-foreground">Simulate Process Mean Shift</label>
+                  <div class="flex items-center gap-3 w-full"><span dir="ltr" data-orientation="horizontal"
+                        aria-disabled="false"
+                        class="relative flex items-center grow touch-none select-none h-11 cursor-pointer py-3 -my-3"
+                        aria-label="Simulate artificial process mean shift offset"
+                        style="--radix-slider-thumb-transform: translateX(-50%);"><span data-orientation="horizontal"
+                           class="relative grow rounded-full h-1 !bg-muted"><span data-orientation="horizontal"
+                              class="absolute h-full bg-primary rounded-full"
+                              style="left: 0%; right: 50%;"></span></span><span
+                           style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(50% + 0px);"><span
+                              role="slider" aria-label="Process mean shift thumb handle" aria-valuemin="-15"
+                              aria-valuemax="15" aria-orientation="horizontal" data-orientation="horizontal"
+                              tabindex="0"
+                              class="block w-[18px] h-[18px] rounded-full bg-primary border-none shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-11 after:h-11"
+                              style="" data-radix-collection-item="" aria-valuenow="0"></span></span></span><span
+                        class="text-sm font-medium text-foreground tabular-nums w-[6ch] text-right shrink-0 whitespace-nowrap">0.0</span>
+                  </div>
+               </div>
+            </div>
+            <div class="flex flex-col gap-1.5"><label class="text-sm font-medium text-muted-foreground">Data Stream
+                  Simulation Scenario</label>
+               <div class="relative h-9 rounded-lg bg-muted px-3 flex items-center"><select
+                     class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-11 w-full opacity-0 cursor-pointer pointer-events-auto text-sm"
+                     aria-label="Select streaming statistical scenario mode">
+                     <option value="standard">Standard IoT Stream (Controlled Variance)</option>
+                     <option value="jitter">Late Arrival &amp; Jitter Injections (Out of Order Queue)</option>
+                     <option value="drift">Cyclical Process Drift (Dynamic Control Limits Adaptation)</option>
+                  </select><span class="text-sm font-medium text-foreground truncate">Standard IoT Stream (Controlled
+                     Variance)</span><span
+                     class="material-icons absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none !text-base">expand_more</span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>  
+   
+</div>
+
+<div class="art-body">
+
+
 
     <p>While the math formulas themselves—like calculating a standard deviation (\(\sigma\)) or a Z-score (\(\frac{X - \mu}{\sigma}\))—are simple level math, when you move from a static Jupyter Notebook to PySpark Structured Streaming, implementing them in a distributed, real-time streaming pipeline is deceptively difficult and drives in into the challenges of distributed systems engineering.</p>
 
