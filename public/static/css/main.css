@@ -128,6 +128,84 @@
       text-decoration: none;
     }
 
+    .tag-tech{
+      max-width: 110px;
+    }
+
+        .tag-tech-60{
+      max-width: 60px;
+    }
+
+    /* Base style for the entire link (Applies to "Logic ") */
+.brand-link {
+  font-family: 'Inter', sans-serif; /* Your first font */
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Specific style override for "HQ" */
+.brand-hq {
+  font-family: 'Playfair Display', serif, italic; /* Your second font */
+  font-weight: 300; /* Optional: differentiate the weights too */
+  font-style: italic; 
+}
+
+
+.site-title {
+  display: flex;
+  align-items: center; /* Centers hamburger, logo, and text vertically */
+  gap: 12px;           /* Adjusts spacing between elements */
+}
+
+/* Ensure the button and inner SVG align perfectly */
+.theme-hamburger {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Give your brand logo SVG fixed, predictable sizing instead of 10% */
+.site-logo-svg {
+  width: 24px;   /* Match this closely to your typography size */
+  height: 24px;
+  display: block;
+}
+
+
+
+    .icons-col-theme{
+      color: var(--text) !important;
+    }
+
+      .theme-hamburger {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      color: var(--text);
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.7em;
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-hamburger:hover {
+      border-color: var(--accent);
+    }
+
+    .theme-hamburger .icon {
+      width: 1.1em;
+      height: 1.1em;
+      display: inline-block;
+    }
+
+
     /* Theme toggle */
     .theme-toggle {
       display: inline-flex;

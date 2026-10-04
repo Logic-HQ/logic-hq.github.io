@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Logic HQ</title>
-  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
-  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="https://github.githubassets.com/favicons/favicon-dark.png">
+ <link rel="fluid-icon" href="public/static/img/l-hq-logo-g.ico" title="Logic-HQ">
+  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="public/static/img/l-hq-logo-g.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
 
@@ -649,9 +649,37 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <div class="site-title">
-        <a href="https://logic-hq.github.io/">Logic HQ</a>
-      </div>
+
+<div class="site-title">
+  <!-- 1. Hamburger button -->
+  <button class="theme-hamburger" id="hamburgerMenu">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14" />
+    </svg>
+  </button>
+  
+  <!-- 2. Logo SVG (Removed wrapper div and adjusted dimensions via class) -->
+  <svg class="site-logo-svg" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 35.1846 39.3801" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Layer-1" vectornator:layerName="Layer 1">
+      <path d="M17.5923 1C7.99607 1.00041 0.217294 8.77879 0.217294 18.375C0.21729 24.1807 3.09258 29.2823 7.46729 32.4375C7.46347 32.3027 7.40479 32.2335 7.40479 32.0938C7.40478 30.3432 8.03605 28.9322 9.06104 27.8125C8.88898 27.4223 8.39358 25.8295 9.15479 23.7188C9.21991 23.6572 9.30712 23.6221 9.37354 23.5625C9.59102 23.5147 10.8004 23.3327 13.5923 25.2188C14.8961 24.8639 16.241 24.6917 17.5923 24.6875C18.9523 24.6964 20.3113 24.8644 21.5923 25.2188C24.4515 23.2752 25.6892 23.5238 25.8423 23.5625C25.8873 23.6032 25.9542 23.6152 25.9985 23.6562C26.7962 25.8034 26.2769 27.4171 26.1235 27.8125C27.1386 28.9324 27.7798 30.3436 27.7798 32.0938C27.7798 32.2336 27.7211 32.3026 27.7173 32.4375C32.092 29.2821 34.9673 24.1809 34.9673 18.375C34.9673 8.77913 27.1885 1 17.5923 1Z" fill="currentColor" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 1"/>
+    </g>
+  </svg>
+
+  <!-- 3. Brand Text -->
+  <!-- <a href="https://logic-hq.github.io/">Logic HQ</a> -->
+
+  <!-- Update your brand link -->
+<a href="https://github.io" class="brand-link">
+  Logic <span class="brand-hq">HQ</span>
+</a>
+
+
+</div>
+
+
+
+  
 
       <nav class="main-nav" aria-label="Main navigation">
         <ul>
@@ -668,11 +696,21 @@
     </div>
   </header>
 
+        <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="hs-h1">Anomalies Detection</h1>
+            <p class="hs-h1">Discover the Live of Statistical Process Control at Live of 5k TIK Metrics Stream.</p>
+            <a href="#ls" class="cta-button hs-h1">Play with SPC</a>
+        </div>
+    </header>
+
   <main class="container">
     <section class="hero">
-      <h1>Technologies, tools, and code ideas.</h1>
+      <h1>Repository</h1>
       <p>
-Here, I share my insights on deep technical discovery, scope definition, and establishing architectural foundations for diverse projects.
+         <a href="https://github.com/Logic-HQ/sentinel-stream-spc">sentinel-stream-spc</a>
+         <br>
+         <a href="https://github.com/Logic-HQ/sentinel-stream-spc/wiki">WIKI</a>
 </p>
 
 
@@ -688,7 +726,7 @@ Here, I share my insights on deep technical discovery, scope definition, and est
 
 
 
-<div class="art-body">
+<div id="ls" class="art-body">
    <div id="root" align="center">
       <div class="w-full bg-card text-foreground select-none font-sans flex flex-col overflow-hidden">
          <div class="relative w-full overflow-hidden border-b border-border bg-[#0d1117]">
@@ -856,6 +894,7 @@ Here, I share my insights on deep technical discovery, scope definition, and est
 </div>
 
 
+
   </main>
 
   <footer class="site-footer">
@@ -893,16 +932,46 @@ Here, I share my insights on deep technical discovery, scope definition, and est
         return 'light';
       }
 
+      // function applyTheme(theme) {
+      //   root.setAttribute('data-theme', theme);
+      //   if (theme === 'dark') {
+      //     themeIcon.textContent = '☀️';
+      //     themeLabel.textContent = 'Light';
+      //   } else {
+      //     themeIcon.textContent = '<img src"="/">';
+      //     themeLabel.textContent = 'Dark';
+      //   }
+      // }
+
+
       function applyTheme(theme) {
-        root.setAttribute('data-theme', theme);
-        if (theme === 'dark') {
-          themeIcon.textContent = '☀️';
-          themeLabel.textContent = 'Light';
-        } else {
-          themeIcon.textContent = '🌙';
-          themeLabel.textContent = 'Dark';
-        }
-      }
+  root.setAttribute('data-theme', theme);
+  
+  if (theme === 'dark') {
+    // Insert your custom Sun SVG code here
+    themeIcon.innerHTML = `
+      <svg xmlns="http://w3.org" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>`;
+    themeLabel.textContent = 'Light';
+  } else {
+    // Insert your custom Moon SVG code here
+    themeIcon.innerHTML = `
+      <svg xmlns="http://w3.org" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>`;
+    themeLabel.textContent = 'Dark';
+  }
+}
+
 
       function initTheme() {
         const theme = getPreferredTheme();

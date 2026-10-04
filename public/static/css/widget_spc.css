@@ -1030,3 +1030,127 @@
          }
       }
       
+      ul {
+    padding-left: 25px; /* Standard indentation */
+    margin: 20px 0;
+}
+
+li {
+    margin-bottom: 18px;
+    padding: 10px 0;
+    font-weight: 500; /* Slightly bolder text */
+    color: #cdcbcb;
+    line-height: 1.6; /* Increased line height for better reading flow */
+    border-bottom: 1px dashed #cccccc1c; /* A subtle separator */
+}
+
+/* Optional: Add a visual cue to the concepts themselves */
+li::before {
+    content: "• "; /* Use a custom marker */
+    color: #2980b9; /* Highlight color */
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+    /* --- Global Reset & Body Setup --- */
+
+
+/* --- Hero Section Styling --- */
+.hero-section {
+    /* 1. Background Image Setup */
+    background-image: url('../../../img/hero.png'); /* << CHANGE THIS PATH! */
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* 2. Full Screen Height & Positioning */
+    height: 55vh; /* Takes up 80% of the viewport height */
+    width: 100%;
+    
+    /* 3. Centering Content using Flexbox (The modern way) */
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    
+    /* Optional: To handle the image display cleanly */
+    position: relative; 
+    text-align: center;
+    background-color: #0d1117;
+}
+
+.hs-h1{
+   color: white;
+}
+
+
+/* --- Overlay for better Text Readability (Crucial for image backgrounds) --- */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Dark, semi-transparent overlay */
+   /*  background-color: rgba(0, 0, 0, 0.5); Adjust opacity (0.5 is 50% black) */
+    z-index: 1; /* Ensure the content sits above this overlay */
+}
+
+/* --- Content Box Styling --- */
+.hero-content {
+    z-index: 2; /* Make sure the text is visible on top of the overlay */
+    max-width: 800px;
+    padding: 40px;
+    background-color: rgba(1, 8, 16, 0.725); /* Slightly transparent white box for readability */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Soft shadow */
+}
+
+/* --- Typography Styling (The H1) --- */
+.hero-content h1 {
+    font-size: 3.5em; /* Large and impactful size */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700; /* Bold for impact */
+    /* Optional: Add a subtle text shadow to make H1 pop off the image */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+}
+
+.hero-content p {
+    font-size: 1.25em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* --- Call to Action Button Styling --- */
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ff4d6d; /* Bright, contrasting color */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid #ff4d6d;
+}
+
+.cta-button:hover {
+    background-color: #e93f5a; /* Darker shade on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* --- Responsiveness (Making it look good on smaller screens) --- */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 30px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em; /* Slightly smaller H1 for mobile */
+    }
+
+    .hero-content p {
+        font-size: 1.1em;
+    }
+}

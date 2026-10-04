@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Logic HQ</title>
-  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
-  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="https://github.githubassets.com/favicons/favicon-dark.png">
+  <link rel="fluid-icon" href="public/static/img/l-hq-logo-g.ico" title="Logic-HQ">
+  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="public/static/img/l-hq-logo-g.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
 
@@ -13,352 +13,47 @@
 <script src="https://www.gstatic.com/external_hosted/chartjs/Chart.min.js"></script>
 <script src="https://www.gstatic.com/vertexaisearch/thirdparty/chartjs-plugin-datalabels_min.2.2.0.js"></script>
 
+<link rel="stylesheet" href="public/static/css/main.css">
+<link rel="stylesheet" href="public/static/css/widget_spc.css">
+
   <style>
-    /* =========================
-       CSS Variables (Theming)
-       ========================= */
-    :root {
-      --bg: #ffffff;
-      --bg-elev: #f7f7f9;
-      --text: #1b1f24;
-      --text-muted: #5f6771;
-      --border: #e5e7eb;
-      --accent: #2f81f7;
-      --accent-contrast: #ffffff;
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      --radius: 12px;
-      --container-max: 960px;
-      --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #0d1117;
-      --bg-elev: #161b22;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
-      --border: #30363d;
-      --accent: #58a6ff;
-      --accent-contrast: #0d1117;
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    }
-
-    /* =========================
-       Base Styles
-       ========================= */
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      border-radius: var(--radius);
-    }
-
-    code, pre {
-      font-family: var(--font-mono);
-      font-size: 0.9em;
-    }
-
-    pre {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      overflow: auto;
-    }
-
-    /* =========================
-       Layout
-       ========================= */
-    .container {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    header.site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.9rem 0;
-    }
-
-    .site-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .site-title a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    nav.main-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 1rem;
-    }
-
-    nav.main-nav a {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    nav.main-nav a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* Theme toggle */
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1px solid var(--border);
-      background: var(--bg-elev);
-      color: var(--text);
-      padding: 0.4rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .theme-toggle:hover {
-      border-color: var(--accent);
-    }
-
-    .theme-toggle .icon {
-      width: 1.1em;
-      height: 1.1em;
-      display: inline-block;
-    }
-
-    /* =========================
-       Hero / Intro
-       ========================= */
-    .hero {
-      padding: 2.5rem 0 1.5rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin: 0 0 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      margin: 0;
-      max-width: 60ch;
-    }
-
-    /* =========================
-       Posts Grid
-       ========================= */
-    .posts {
-      padding: 1rem 0 3rem;
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .post-card {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .post-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      border-color: var(--accent);
-    }
-
-    .post-card .post-image {
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, var(--bg-elev), var(--bg));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .post-card .post-content {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      flex: 1;
-    }
-
-    .post-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .post-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.35;
-    }
-
-    .post-title a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .post-excerpt {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin: 0;
-      flex: 1;
-    }
-
-    .post-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: auto;
-    }
-
-    /* =========================
-       Footer
-       ========================= */
-    footer.site-footer {
-      max-height: 3rem;
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 0 2.5rem;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* =========================
-       Responsive tweaks
-       ========================= */
-    @media (max-width: 640px) {
-      .header-inner {
-        flex-wrap: wrap;
-        gap: 0.6rem;
-      }
-
-      nav.main-nav ul {
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-
-      .hero {
-        padding-top: 1.5rem;
-      }
-    }
- 
-      .chart-container-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .chart-header {
-        white-space: pre-wrap;
-        word-break: break-word;
-        display: none;
-        padding: 16px 16px 0 16px;
-        flex-shrink: 0;
-        font-size: 16px;
-        font-weight: bold;
-        color: #E8E8E8;
-        font-family: 'Google Sans', Roboto, Arial, sans-serif;
-      }
-      #chart-container {
-        
-        flex-grow: 1;
-        min-height: 0;
-        
-        position: relative;
-        padding: 8px 16px 16px 16px;
-        box-sizing: border-box;
-      }
-      canvas {
-        width: 100% !important;
-        height: 100% !important;
-      }
+   
     </style>
+
+
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <div class="site-title">
-        <a href="https://logic-hq.github.io/">Logic HQ</a>
-      </div>
+
+
+<div class="site-title">
+  <!-- 1. Hamburger button -->
+  <button class="theme-hamburger" id="hamburgerMenu">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14" />
+    </svg>
+  </button>
+ 
+  
+  <!-- 2. Logo SVG (Removed wrapper div and adjusted dimensions via class) -->
+  <svg class="site-logo-svg" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 35.1846 39.3801" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Layer-1" vectornator:layerName="Layer 1">
+      <path d="M17.5923 1C7.99607 1.00041 0.217294 8.77879 0.217294 18.375C0.21729 24.1807 3.09258 29.2823 7.46729 32.4375C7.46347 32.3027 7.40479 32.2335 7.40479 32.0938C7.40478 30.3432 8.03605 28.9322 9.06104 27.8125C8.88898 27.4223 8.39358 25.8295 9.15479 23.7188C9.21991 23.6572 9.30712 23.6221 9.37354 23.5625C9.59102 23.5147 10.8004 23.3327 13.5923 25.2188C14.8961 24.8639 16.241 24.6917 17.5923 24.6875C18.9523 24.6964 20.3113 24.8644 21.5923 25.2188C24.4515 23.2752 25.6892 23.5238 25.8423 23.5625C25.8873 23.6032 25.9542 23.6152 25.9985 23.6562C26.7962 25.8034 26.2769 27.4171 26.1235 27.8125C27.1386 28.9324 27.7798 30.3436 27.7798 32.0938C27.7798 32.2336 27.7211 32.3026 27.7173 32.4375C32.092 29.2821 34.9673 24.1809 34.9673 18.375C34.9673 8.77913 27.1885 1 17.5923 1Z" fill="currentColor" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 1"/>
+    </g>
+  </svg>
+
+  <!-- 3. Brand Text -->
+  <!-- <a href="https://logic-hq.github.io/">Logic HQ</a> -->
+
+  <!-- Update your brand link -->
+<a href="https://github.io" class="brand-link">
+  Logic <span class="brand-hq">HQ</span>
+</a>
+
+
+</div>
 
       <nav class="main-nav" aria-label="Main navigation">
         <ul>
@@ -375,7 +70,14 @@
     </div>
   </header>
 
+   
+
   <main class="container">
+
+
+
+
+
     <section class="hero">
       <h1>Technologies, tools, and code ideas.</h1>
       <p>
@@ -414,6 +116,16 @@ Here, I share my insights on deep technical discovery, scope definition, and est
             <a class="post-link" href="https://github.com/Logic-HQ/kafka-challenges-and-solutions/wiki/Welcome-to-the-Kafka-challenges-&-their-solutions">
               Read wiki →
             </a>
+
+       <br>
+
+     <div class="image-row">
+            <img class="tag-tech" alt="ClickHouse" src="https://img.shields.io/badge/ClickHouse-%23FFCC01.svg?style=for-the-badge&logo=clickhouse&logoColor=black" />
+
+  <img class="tag-tech-60" alt="Go" src="https://img.shields.io/badge/Go-%2300ADD8.svg?&logo=go&logoColor=white" />
+
+           <img class="tag-tech" alt="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=fff" />
+</div>
           </div>
         </article>
 
@@ -649,16 +361,44 @@ Here, I share my insights on deep technical discovery, scope definition, and est
         return 'light';
       }
 
-      function applyTheme(theme) {
-        root.setAttribute('data-theme', theme);
-        if (theme === 'dark') {
-          themeIcon.textContent = '☀️';
-          themeLabel.textContent = 'Light';
-        } else {
-          themeIcon.textContent = '🌙';
-          themeLabel.textContent = 'Dark';
-        }
-      }
+      // function applyTheme(theme) {
+      //   root.setAttribute('data-theme', theme);
+      //   if (theme === 'dark') {
+      //     themeIcon.textContent = '☀️';
+      //     themeLabel.textContent = 'Light';
+      //   } else {
+      //     themeIcon.textContent = '🌙';
+      //     themeLabel.textContent = 'Dark';
+      //   }
+
+              function applyTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  
+  if (theme === 'dark') {
+    // Insert your custom Sun SVG code here
+    themeIcon.innerHTML = `
+      <svg xmlns="http://w3.org" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>`;
+    themeLabel.textContent = 'Light';
+  } else {
+    // Insert your custom Moon SVG code here
+    themeIcon.innerHTML = `
+      <svg xmlns="http://w3.org" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>`;
+    themeLabel.textContent = 'Dark';
+  }
+};
+      
 
       function initTheme() {
         const theme = getPreferredTheme();
