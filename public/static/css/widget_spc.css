@@ -1082,6 +1082,10 @@ li::before {
    color: white;
 }
 
+.date-a{
+   color: #74798b;
+   font-size: 0.9rem;
+}
 
 /* --- Overlay for better Text Readability (Crucial for image backgrounds) --- */
 .hero-section::before {
