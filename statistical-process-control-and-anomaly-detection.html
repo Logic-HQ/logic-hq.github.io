@@ -2,17 +2,17 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <title>Logic HQ</title>
+  <title>Logic HQ Building SentinelStream: Real-Time Anomaly Detection Pipeline</title>
  <link rel="fluid-icon" href="public/static/img/l-hq-logo-g.ico" title="Logic-HQ">
   <link rel="alternate icon" class="js-site-favicon" type="image/png" href="public/static/img/l-hq-logo-g.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-
    <meta name="enable-onep-api" content="false">
-    
-<script src="https://www.gstatic.com/external_hosted/chartjs/Chart.min.js"></script>
-<script src="https://www.gstatic.com/vertexaisearch/thirdparty/chartjs-plugin-datalabels_min.2.2.0.js"></script>
-
+   <script src="https://www.gstatic.com/external_hosted/chartjs/Chart.min.js"></script>
+   <script src="https://www.gstatic.com/vertexaisearch/thirdparty/chartjs-plugin-datalabels_min.2.2.0.js"></script>
+   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
 <!-- <script src="public/static/js/widget-spc.js" defer></script> -->
 
  <script
@@ -895,6 +895,130 @@
     </details>
 </div>
 
+
+<div class="container">
+
+    <!-- Main Title -->
+    <h2>Building SentinelStream: A Real-Time SPC & Anomaly Detection Pipeline with PySpark, Kafka, and ClickHouse</h2>
+
+    <p>As industrial IoT networks and high-frequency financial platforms grow, processing data reactively is no longer enough. Waiting for an overnight batch job to discover a failing asset or a systemic drift means lost revenue, broken SLA agreements, and operational blindness.</p>
+    <p>To solve this, I built <strong>SentinelStream</strong>—an end-to-end, open-source stream processing pipeline designed to ingest high-frequency telemetry, calculate dynamic rolling baselines on the fly, and execute multivariate anomaly detection in real time.</p>
+    <p>Here is a deep dive into the architecture, the technical bottlenecks I encountered, and how I solved them using <strong>Apache Kafka</strong>, <strong>PySpark Structured Streaming</strong>, <strong>ClickHouse</strong>, and <strong>MinIO</strong>.</p>
+
+    <!-- Architecture Section -->
+    <h2>🗺️ The Architecture: Separation of Concerns</h2>
+    <p>A resilient streaming architecture must separate long-term analytical storage from instant, automated data mutation and quarantine mechanics. SentinelStream splits these demands across four distinct layers:</p>
+
+    <!-- Diagram Representation (Using text structure as a placeholder for Mermaid/Diagram) -->
+    <pre class="mermaid">
+[Data Generator (Python)] 
+       │ 
+       │ (IoT Sensor Payload) 
+       ▼
+[Apache Kafka] (Message Broker / Ingestion)
+       │ 
+       ▼
+[PySpark Streaming] (Real-Time Compute Engine) 
+       ├── Task 1: Moving Window Metrics (Avg, StdDev) -> SPC 3-Sigma Limits
+       ├── Task 2: Real-time Z-Score Evaluation (Instant Outlier Detection)
+       └── Task 3: Isolation Forest Micro-batching (Drift & Multi-variable Anomalies)
+               │
+               ├──► [Anomalies / Corrupt Payloads] ──► [Dead Letter Queue] ──► [MinIO/S3 Logs]
+               └──► [Clean / Validated Data] ──► [ClickHouse OLAP Store] ──► [Grafana]
+    </pre>
+
+    <p><strong>1. Ingestion & Buffering:</strong> Apache Kafka absorbs raw telemetry from simulated IoT edge devices. Partitioning records by <code>device_id</code> guarantees horizontal scalability.</p>
+    <p><strong>2. Real-Time Stream Processing:</strong> PySpark acts as our core compute matrix, processing streams using three layered, progressive analytical tests.</p>
+    <p><strong>3. The Clean Path (OLAP Analytics):</strong> Clean, validated data is streamed down to ClickHouse, an exceptionally fast columnar database designed for time-series aggregation.</p>
+    <p><strong>4. The Quarantine Path (Dead Letter Queue):</strong> Flagged data drops immediately out of the hot production path into a Kafka Dead Letter Queue (DLQ) topic, where a dedicated archiver pushes alerts down to a MinIO S3 bucket for auditing.</p>
+
+    <!-- Deep Dive: Tasks -->
+    <h2>🛠️ Deep Dive: The Three Analytical Streaming Tasks</h2>
+
+    <h3>Task 1: Overcoming Unbounded State with Sliding SPC Windows</h3>
+    <p>Statistical Process Control (SPC) uses traditional 3-Sigma control bounds (UCL = μ + 3σ and LCL = μ - 3σ) to flag anomalous events. In a streaming environment, calculating a rigid global mean is useless—the engine must track a moving historical baseline.</p>
+    <p>Using PySpark, I configured a 5-minute sliding window evaluated every minute. To prevent infinite memory consumption from storing endless state arrays, I implemented a strict 10-minute event-time watermark:</p>
+
+    <div class="mermaid">
+    graph TD;
+        A[Data Generator] --> B(Kafka);
+        B --> C(PySpark Streaming);
+        C --> D{Anomaly Detection};
+        D --> E[ClickHouse / MinIO];
+</div>
+
+    <pre><code># Prevent infinite state memory accumulation
+parsed_stream = raw_stream.withWatermark("timestamp", "10 minutes")
+# Group by windows to calculate moving baselines
+windowed_stats = parsed_stream.groupBy</code></pre>
+
+    <h3>Task 2: Dynamic Point-In-Time Z-Score Checks</h3>
+    <p>While Task 1 tracks historical baselines, Task 2 executes stateless calculations to capture sudden, extreme telemetry spikes. By performing an immediate stream-to-stream temporal join against the baseline matrix, the incoming values can instantly be scored against their exact temporal cohorts:</p>
+
+    $$\text{Z-Score} = \frac{\vert\text{Metric Value} - \text{Moving Avg}\vert{}}{\text{Moving StdDev}}$$
+
+
+
+    <p>If an incoming value displays an impossible statistical leap (Z &gt; 3.5), it is flagged immediately to protect down-stream analytics from structural contamination.</p>
+
+    <h3>Task 3: Solving the PySpark MLlib Bottleneck via Vectorized Apache Arrow</h3>
+    <p>Here is where traditional data engineering patterns struggle. Standard PySpark MLlib lacks a native IsolationForest model to detect multivariate anomaly drift (e.g., when temperature and vibration are both technically within normal bounds, but their relationship is uncharacteristic).</p>
+    <p>To embed Scikit-Learn's highly optimized <code>IsolationForest</code> without ruining streaming throughput, I leveraged Apache Arrow via <code>PySpark mapInPandas</code>.</p>
+    <p>This lets Spark serialize micro-batches using zero-copy memory transfers, dropping straight down to low-overhead Python memory for vectorized execution:</p>
+
+    <pre><code># Implementation detail placeholder (Actual code omitted but structure shown)
+import pyspark.sql.functions as F
+from pyspark.ml.feature import VectorAssembler
+
+# Example leveraging Arrow via mapInPandas:
+result_df = parsed_stream.mapInPandas(
+    lambda row: run_isolation_forest_on_batch(row), 
+    vector_cols # Assumes vector assembly happens here
+
+def run_isolation_forest_microbatch(iterator: Iterator[pd.DataFrame]) -> Iterator[pd.DataFrame]:
+    for pdf in iterator:
+        if pdf.empty: yield pdf; continue
+        
+        # Scikit-learn feature slice
+        features = pdf[['metric_value', 'z_score']].fillna(0.0)
+        model = IsolationForest(n_estimators=100, contamination=0.05, random_state=42)
+        
+        # -1 = anomaly, 1 = normal
+        predictions = model.fit_predict(features)
+        pdf['is_iforest_anomaly'] = [1 if pred == -1 else 0 for pred in predictions]
+        yield pdf
+
+
+)</code></pre>
+
+    <!-- Storage Footprint -->
+    <h2>📈 Engineering for Scale: The Storage Footprint</h2>
+
+    <h3>ClickHouse Columnar Database Layout</h3>
+    <p>For the clean telemetry path, storing millions of raw text keys breaks performance profiles. I deployed ClickHouse with a <code>ReplacingMergeTree</code> engine ordered by <code>(metric_name, device_id, timestamp)</code> while wrapping repetitive keys inside <code>LowCardinality(String)</code> types. This architecture heavily compresses redundant metadata, reducing disk I/O to an absolute minimum during dashboard sweeps.</p>
+
+    <h3>Hive-Style Cold Storage Storage For DLQ Logs</h3>
+    <p>When anomalies strike, the pipeline exports payloads to MinIO using a strict Hive-style directory architecture:</p>
+    <pre><code>s3://sentinel-dlq-archive/year=2026/month=10/day=05/sensor-device-01/</code></pre>
+    <p>This decision guarantees that long-term audits or ad-hoc debugging queries can run highly scoped external table engine tools (like Snowflake or AWS Athena) without executing expensive global bucket scans.</p>
+
+    <!-- Key Takeaways -->
+    <h2>💡 Key Key Takeaways</h2>
+    <p>Building SentinelStream highlighted three fundamental tenets of production data architecture:</p>
+    <ul>
+        <li><strong>Never allow infinite states:</strong> Streaming state management requires rigid execution of watermarks to keep system memory stable over time.</li>
+        <li><strong>Optimize IPC Boundaries:</strong> Python data science libraries can coexist natively inside Java-based PySpark grids if you deploy Apache Arrow (<code>mapInPandas</code>) to remove serialization boundaries.</li>
+        <li><strong>Quarantine early:</strong> Dropping corrupted or heavily anomalous payloads into a DLQ immediately prevents hot storage systems from scaling up costs unnecessarily.</li>
+    </ul>
+
+    <!-- Call to Action -->
+    <h2>🛠️ Reproduce It Yourself</h2>
+    <p>The complete project infrastructure—including a comprehensive multi-container <code>docker-compose.yml</code>, automated infrastructure provisioning scripts, and a real-time IoT anomaly generator—is open-source and available on GitHub.</p>
+    <a href="https://github.com/Logic-HQ/sentinel-stream-spc" class="link-style">👉 Check out the code here: https://github.com/Logic-HQ/sentinel-stream-spc</a>
+
+    <p>Let's connect! If you have built similar real-time validation layers or are actively solving streaming bottlenecks, let's talk in the comments below.</p>
+
+</div>
 
 
   </main>

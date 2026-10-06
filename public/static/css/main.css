@@ -136,16 +136,23 @@
       max-width: 60px;
     }
 
-    .image-row {
-  display: flex;            /* Lines the images up in a row */
-  justify-content: center;   /* Centers the images horizontally (options: space-between, space-around) */
-  gap: 15px;                /* Adds spacing between the images */
+.title-row svg{
+  display: inline-block; /* Places them side-by-side */
+  /* width: 30%; */
+  /* margin-left: 1%; */
+}
+
+.image-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+  gap: 10px;
 }
 
 .image-row img {
-  width: 30%;               /* Adjusts size so all three fit perfectly in the row */
+  /*  width: 30%;              Adjusts size so all three fit perfectly in the row */
   height: auto;             /* Keeps the images proportional */
   object-fit: cover;        /* Ensures images scale cleanly without distorting */
+
 }
 
     /* Base style for the entire link (Applies to "Logic ") */

@@ -1158,3 +1158,70 @@ li::before {
         font-size: 1.1em;
     }
 }
+
+ .container {
+            max-width: 900px;
+            margin: 0 auto;
+           /* background-color: var(--color-foreground);  White content box */
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            font-size: 2em;
+            /* color: #24292e; */
+            border-bottom: 2px solid #eaecef;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        h2 {
+            font-size: 1.5em;
+            /* color: #333; */
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 1.2em;
+            /* color: #444; */
+            margin-top: 20px;
+        }
+        strong {
+            color: #0366d6; /* Highlight key terms */
+        }
+        code {
+            /* background-color: var(--color-foreground); */
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.95em;
+        }
+        pre {
+            /* background-color:var(--color-foreground); */
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .mermaid {
+            /* Placeholder styling for Mermaid diagrams if you were to render them */
+            /* background-color: var(--color-foreground); */
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px dashed #ccc;
+        }
+        ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .link-style {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #0366d6;
+        }
+        
