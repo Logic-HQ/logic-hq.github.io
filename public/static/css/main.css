@@ -3,7 +3,10 @@
        ========================= */
     :root {
       --bg: #ffffff;
+      --color-bg-subtle: #f6f6f6;
       --bg-elev: #f7f7f9;
+      --text-title: #030d1d;
+      --text-primary: #4c4f54;
       --text: #1b1f24;
       --text-muted: #5f6771;
       --border: #e5e7eb;
@@ -19,6 +22,9 @@
     :root[data-theme="dark"] {
       --bg: #0d1117;
       --bg-elev: #161b22;
+      --color-bg-subtle: #161b22;
+      --text-title: #e3eefe;
+      --text-primary: #9fa2a5;
       --text: #e6edf3;
       --text-muted: #8b949e;
       --border: #30363d;
@@ -87,7 +93,7 @@
       top: 0;
       z-index: 10;
       background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 0px solid var(--border);
       backdrop-filter: blur(8px);
     }
 
@@ -135,6 +141,93 @@
         .tag-tech-60{
       max-width: 60px;
     }
+
+
+.user-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin-bottom: 2rem;
+}
+
+.gh-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+        .gh-tag-badge {
+          margin-top: 1rem;
+          margin-bottom: 0cqb;
+          align-items: center;
+                padding: 15px 20px;
+            background-color: var(--text-secondary);
+            border: 1px solid var(--color-border-default);
+            border-radius: 2em;
+            /* color: var(--color-fg-muted); */
+            color: var(--bg);
+            margin-left: 8px;
+        }
+
+/* Base style for clickable elements to remove default link styling */
+.meta-link {
+  color: var(--accent-contrast) !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.meta-gh-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.meta-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.meta-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.meta-username {
+  color: var(--text-title);
+  font-weight: 500;
+}
+
+/* Optional: Slight color change or underline when hovering over the username */
+.username-link:hover .meta-username {
+  text-decoration: underline;
+  color: var(--text-title);
+}
+
+/* Optional: Slight opacity change when hovering over the avatar */
+.avatar-link:hover .meta-avatar {
+  opacity: 0.85;
+}
+
+.meta-divider {
+  color: #82959b;
+}
+
+.meta-date {
+  color: #82959b;
+  font-size: .8rem;
+  font-weight: 400;
+}
+
+
+
 
 .title-row svg{
   display: inline-block; /* Places them side-by-side */
@@ -265,7 +358,7 @@
     }
 
     .hero p {
-      color: var(--text-muted);
+      color: var(--text);
       margin: 0;
       max-width: 60ch;
     }
@@ -458,9 +551,13 @@
             font-size: 1.5em;
             font-weight: 600;
             padding-bottom: 0.3em;
-            border-bottom: 1px solid var(--border);
+            /* border-bottom: 1px solid var(--border); */
             margin-top: 24px;
             margin-bottom: 16px;
+        }
+
+        .bbl{
+           border-bottom: 1px solid var(--border);
         }
         h3 {
             font-size: 1.25em;
