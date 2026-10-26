@@ -1,0 +1,351 @@
+        :root {
+            /* --bg-color: #f6f8fa; */
+            --sidebar-bg: #24292e;
+            --text-primary: #24292e;
+            --text-secondary: #586069;
+            --border-color: #dfe2e5;
+            --accent-blue: #0366d6;
+            --code-bg: #f6f8fa;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+              :root {
+            --color-bg-default: #0d1117;
+            /* --color-bg-subtle: #161b22; */
+            --color-bg-inset: #010409;
+            --color-border-default: #30363d;
+            --color-border-muted: #21262d;
+            --color-fg-default: #e6edf3;
+            --color-fg-muted: #848d97;
+            --color-accent-fg: #2f81f7;
+            --color-accent-emphasis: #1f6feb;
+            --color-success-fg: #3fb950;
+            --color-attention-fg: #d29922;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+
+
+
+        /* .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        } */
+
+            .container {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+   
+    
+
+        header {
+            /* background-color: white; */
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px 36px 56px;
+            /* Large gap for hero */
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 46px;
+            /* Increased bottom margin to separate from "About" */
+            border-top-left-radius: 3px;
+        }
+
+        .h1-badge {
+            font-size: 30px;
+            font-weight: 500;
+            padding: 0 7px;
+            color: var(--color-fg-muted);
+            /* background-color: var(--text-secondary); */
+            /* border-radius: .5rem; */
+            margin-left: 8px;
+        }
+
+        .description-block p:first-child,
+        h2 {
+            font-size: 40px;
+            line-height: 1.25;
+            margin-bottom: 96px;
+            /* Large gap after first paragraph too */
+            border-top-left-radius: 3px;
+        }
+
+        .description-block p:last-child,
+        h2 {
+            font-size: 40px;
+            line-height: 1.25;
+            margin-bottom: 96px;
+            /* Increased bottom margin to separate from "About" */
+            border-top-left-radius: 3px;
+        }
+
+        .about {
+            color: var(--text-secondary);
+            font-size: 18px;
+            padding-top: 40px;
+        }
+
+        h2,
+        h3,
+        h4 {
+            margin-top: 60px;
+            /* Add space before sections */
+            /* border-top: 1px solid var(--border-color); */
+            display: inline-block;
+            /* padding-right: 58%; */
+            /* Align with top-level text in GitHub style usually aligns right if it is second level. For first and third levels they are left aligned but still need to be separate from paragraphs */
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-top: 60px;
+        }
+
+        p,
+        ul,
+        ol {
+            color: var(--text-primary);
+        }
+
+        .description-block p:first-child::after {
+            content: "";
+            display: block;
+            height: 78vh;
+        }
+
+        /* Spacer */
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        blockquote {
+            border-left-color: #dfe2e5 !important;
+            padding-right: 10px;
+            margin-left: -9px;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Liberation Mono", Courier New, monospace;
+            background: var(--code-bg);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-inline-start: 25px;
+            position: relative;
+            left: 3.6rem;
+            /* font-weight: bold; */
+        }
+
+        .sidebar-nav a.sidebar-link {
+            display: block;
+            color: #d1d5da;
+            line-height: 40%;
+            padding: .7em 9.8em;
+            margin-top: -4.3em;
+            border-radius: 6px;
+            text-decoration: none
+        }
+
+        @media (min-width: 250em) {
+
+            h1,
+            .description-block p:first-child,
+            .about {
+                font-size: 60px;
+            }
+        }
+
+        table, th, td {
+    border: 30px solid rgba(0, 0, 0, 0);
+    border-collapse: collapse;
+  }
+
+  table.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  
+
+        /* Repo Header Style */
+        .repo-header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--color-border-default);
+        }
+
+        .repo-icon {
+            fill: var(--color-fg-muted);
+            margin-right: 8px;
+        }
+
+        .repo-title {
+            font-size: .95em;
+            font-weight: 600;
+        }
+
+        .repo-title a {
+            color: var(--color-accent-fg);
+            text-decoration: none;
+        }
+
+        .repo-title a:hover {
+            text-decoration: underline;
+        }
+
+        .repo-title .separator {
+            color: var(--color-fg-muted);
+            margin: 0 4px;
+            font-weight: 400;
+        }
+
+        .public-badge {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0 7px;
+            border: 1px solid var(--color-border-default);
+            border-radius: 2em;
+            color: var(--color-fg-muted);
+            margin-left: 8px;
+        }
+
+        .tag-badge {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 14px;
+            background-color: var(--text-secondary);
+            border: 1px solid var(--color-border-default);
+            border-radius: 2em;
+            color: var(--color-fg-muted);
+            color: var(--bg);
+            margin-left: 8px;
+        }
+
+        /* Box Layout (README style) */
+        .readme-box {
+            border: 1px solid var(--color-border-default);
+            border-radius: 6px;
+            background-color: var(--bg);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .readme-header {
+            padding: 8px 16px;
+            background-color: var(--color-bg-subtle);
+            /* border-bottom: 1px solid var(--color-border-default); */
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .readme-content {
+            padding: 40px;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: var(--text-title);
+            padding-bottom: 0.3em;
+            /* border-bottom: 1px solid var(--color-border-muted); */
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--text-title);
+            font-size: 1.5em;
+            padding-bottom: 0.3em;
+            /* border-bottom: 1px solid var(--color-border-muted); */
+        }
+
+        h3 {
+            font-size: 1.25em;
+            color: var(--text-title);
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            /* color: var(--color-fg-default); */
+        }
+
+        ul {
+            padding-left: 2em;
+            padding-right: 4em;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-top: 0.25em;
+        }
+
+        li + li {
+            margin-top: 0.25em;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        /* Code & Callouts */
+        code {
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            white-space: break-spaces;
+            background-color: rgba(110, 118, 129, 0.4);
+            border-radius: 6px;
+            font-family: ui-monospace, SFMono-Regular, SF Pro Text, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        }
+
+        .blockquote {
+            padding: 0 1em;
+            color: var(--color-fg-muted);
+            border-left: .25em solid var(--color-border-default);
+            margin: 0 0 16px 0;
+        }
+
+        /* Custom Tech Stack Tags */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .tag {
+            background-color: var(--color-bg-subtle);
+            border: 1px solid var(--color-border-default);
+            padding: 4px 12px;
+            border-radius: 2em;
+            font-size: 14px;
+            font-weight: 500;
+        }
