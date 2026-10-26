@@ -1,1 +1,487 @@
-Test
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="fluid-icon" href="public/static/img/l-hq-logo-g.ico" title="Logic-HQ">
+  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="public/static/img/l-hq-logo-g.ico">
+    <title>High-Performance AI Inference Development Plan</title>
+
+
+
+<link rel="stylesheet" href="/public/static/css/main.css">
+<!-- <link rel="stylesheet" href="public/static/css/widget_spc.css"> -->
+<link rel="stylesheet" href="/public/static/css/arts.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NDVJY9ZCML"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NDVJY9ZCML');
+</script>
+    
+</head>
+
+<body>
+
+
+<header class="site-header">
+    <div class="container header-inner">
+        <div class="site-title">
+            <!-- 1. Hamburger button -->
+            <button class="theme-hamburger" id="hamburgerMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" d="M5 17h14M5 12h14M5 7h14" />
+                </svg>
+            </button>
+
+            <!-- 2. Logo SVG (Removed wrapper div and adjusted dimensions via class) -->
+            <svg class="site-logo-svg" stroke-miterlimit="10"
+                style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1"
+                viewBox="0 0 35.1846 39.3801" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Layer-1" vectornator:layerName="Layer 1">
+                    <path
+                        d="M17.5923 1C7.99607 1.00041 0.217294 8.77879 0.217294 18.375C0.21729 24.1807 3.09258 29.2823 7.46729 32.4375C7.46347 32.3027 7.40479 32.2335 7.40479 32.0938C7.40478 30.3432 8.03605 28.9322 9.06104 27.8125C8.88898 27.4223 8.39358 25.8295 9.15479 23.7188C9.21991 23.6572 9.30712 23.6221 9.37354 23.5625C9.59102 23.5147 10.8004 23.3327 13.5923 25.2188C14.8961 24.8639 16.241 24.6917 17.5923 24.6875C18.9523 24.6964 20.3113 24.8644 21.5923 25.2188C24.4515 23.2752 25.6892 23.5238 25.8423 23.5625C25.8873 23.6032 25.9542 23.6152 25.9985 23.6562C26.7962 25.8034 26.2769 27.4171 26.1235 27.8125C27.1386 28.9324 27.7798 30.3436 27.7798 32.0938C27.7798 32.2336 27.7211 32.3026 27.7173 32.4375C32.092 29.2821 34.9673 24.1809 34.9673 18.375C34.9673 8.77913 27.1885 1 17.5923 1Z"
+                        fill="currentColor" fill-rule="nonzero" opacity="1" stroke="none"
+                        vectornator:layerName="Curve 1" />
+                </g>
+            </svg>
+
+            <!-- 3. Brand -->
+            <a href="https://logic-hq.github.io/" class="brand-link">
+                Logic <span class="brand-hq">HQ</span>
+            </a>
+
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="https://logic-hq.github.io/">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="https://github.com/Logic-HQ" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+        </nav>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
+            <span class="icon" id="themeIcon">🌙</span>
+            <span id="themeLabel">Dark</span>
+        </button>
+    </div>
+
+        <div class="container">
+
+            <div class="repo-header">
+        <svg class="repo-icon" height="16" viewBox="0 0 16 16" width="16">
+            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 1 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 0 1 1-1h8z"></path>
+        </svg>
+        <div class="repo-title">
+            <a href="/">labs</a>
+            <span class="separator">/</span>
+            <a href="#">squeeze out gpu's performance through hardware-aware inference</a>
+        </div>
+        <span class="public-badge">Public</span>
+    </div>
+    </div>
+</header>
+
+
+<div class="container">
+
+
+
+    <div class="user-meta-container">
+  <!-- Substitute href with your actual profile link and src with your avatar path -->
+  <a href="/profile-sergio" class="meta-link avatar-link">
+    <img src="https://avatars.githubusercontent.com/u/332618538?v=4&size=64" alt="Avatar" class="meta-avatar">
+  </a>
+  
+  <div class="meta-info">
+    <a href="/profile-sergio" class="meta-link username-link">
+      <span class="meta-username">u/Sergio</span>
+    </a>
+    <span class="meta-divider">•</span>
+    <span class="meta-date">September 15 2026</span>
+  </div>
+</div>
+
+
+        <h1 >Squeeze out GPU's performance through hardware-aware inference <span class="h1-badge">R&D</span></h1>
+        <!-- <h2 style="margin-bottom:43px;">High-Performance AI Inference Development Plan</h2> -->
+        
+        <span class="tag-badge">cuda</span>
+        <span class="tag-badge">kernel</span>
+        <span class="tag-badge">high-performance</span>
+        <span class="tag-badge">ai</span>
+        <span class="tag-badge">inference</span>
+        <span class="tag-badge">etl</span>
+
+
+
+
+        <div class="about" id="readme-body">
+            <p>
+                <em>
+                    Such a task arises for businesses where the development is in phase:
+                </em>
+            </p>
+            <ul>
+                <li>
+                    - all ETL processes are agreed and debugged
+                </li>
+                <li>
+                    - all machine learning pipelines are optimized at the upper levels of the PE to produce results intended for the "long haul"
+                </li>
+                <li>
+                    - various optimizations performed on infrastructure and logic layer
+                    regarding load distribution within GPU cluster.
+                </li>
+            </ul>
+        
+
+
+
+<p><img src="https://github.com/Logic-HQ/didactic-octo-memory/raw/main/docs/imgs/gpu.jpg" alt="alt"></p>
+
+
+            <blockquote>
+                <em>
+                    <p>
+                        In this research we consider possibilities of Minimize
+                        overheads in layers close to Hardware. Where the task <b>"Squeeze out performance"</b>  means extracting maximum
+                        from available equipment.
+                    </p>
+                    <p>
+                        In context of AI-inference it means minimizing time required for GPU processor to perform inference task
+                        (e.g., passing through neural network layers).
+                    </p>
+                </em>
+            </blockquote>
+
+           
+<div class="gh-tag-badge">
+    <div class="gh-meta-container">
+        <!-- Substitute href with your actual profile link and src with your avatar path -->
+        <a href="https://github.com/Logic-HQ/didactic-octo-memory" class="meta-link avatar-link">
+            <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-mark-github"
+                viewBox="0 0 24 24" width="32" height="32" fill="white" display="inline-block" overflow="visible"
+                style="vertical-align:text-bottom">
+                <path
+                    d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943">
+                </path>
+            </svg>
+        </a>
+
+        <div class="meta-info">
+            <a href="https://github.com/Logic-HQ/didactic-octo-memory" class="meta-gh-link username-link">
+                <span class="meta-username">Repository:</span>
+            </a>
+            <span class="meta-divider">•</span>
+            <span class="meta-date">didactic-octo-memory</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="gh-tag-badge">
+    <div class="gh-meta-container">
+        <!-- Substitute href with your actual profile link and src with your avatar path -->
+        <a href="https://github.com/Logic-HQ/didactic-octo-memory/wiki" class="meta-link avatar-link">
+            <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-mark-github"
+                viewBox="0 0 24 24" width="32" height="32" fill="white" display="inline-block" overflow="visible"
+                style="vertical-align:text-bottom">
+                <path
+                    d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943">
+                </path>
+            </svg>
+        </a>
+
+        <div class="meta-info">
+            <a href="https://github.com/Logic-HQ/didactic-octo-memory/wiki" class="meta-gh-link username-link">
+                <span class="meta-username">Wiki:</span>
+            </a>
+            <span class="meta-divider">•</span>
+            <span class="meta-date">didactic-octo-memory</span>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+            <h2 id="thesis">Thesis:</h2>
+            <p><strong>Problem</strong></p>
+
+            <blockquote>
+                <em>
+                    <p>
+ The problem we solve: Standard frameworks (PyTorch/TensorFlow) often cannot fully utilize specific
+                instructions of next-gen GPU for very small models due to abstraction overhead.
+            
+                  </p>
+                  <p>
+Modern machine learning tasks (especially when working with large models) require an enormous amount
+                    of matrix operations. To achieve ultra-low latency and high throughput.
+                  </p>
+                </em>
+            </blockquote>
+
+
+    
+            <h4 id="project-goal">Project Goal:</h4>
+            <p>Develop and implement high-performance inference (output) for "small" neural networks (NLP models),
+                minimizing memory consumption and execution latency on the target device.</p>
+            <p>In computing engineering, <strong>(kernel)</strong> refers to the lowest level of abstraction where main
+                processor operations are performed. 
+                  </p>
+
+                  <h3> Consider:</h3>
+                <p>
+
+                    <ul>
+                        <li>
+- <strong>Hardware</strong> consider how these kernels interact with memory, caches and compute
+                blocks (e.g., tensor cores on GPU or specialized CPU instructions).
+                        </li>
+                        <li>
+<strong>- GPU Architecture:</strong>Study how CUDA works (Warp architecture, Shared Memory, Registers).
+                        </li>
+                    </ul>
+              
+                </p>
+       
+         
+            <blockquote>Mark a project with hardware-oriented solution.</blockquote>
+            <ul>
+                <li>The solution must achieve maximum possible efficiency of executing critical computational operations
+                    directly at the processor level, bypassing overheads of OS and high-level abstractions. This can be:
+                </li>
+            </ul>
+
+            <h2>Solution with a Warp-architecture addition</h2>
+
+           <p>CUDA/Triton Consideration</p> 
+                
+                <table>
+  <tr>
+    <th>N</th>
+    <th>technology</th>
+    <th>Link</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Triton </td>
+    <td>
+        <a href="https://github.com/triton-inference-server">github.com/triton-inference-server</a>
+        
+    </td>
+  </tr>
+
+    <tr>
+    <td>1</td>
+    <td>
+        Triton Inference Server on NVIDIA GPU Cloud (NGC)
+    </td>
+    <td>
+        <a href="https://github.com/triton-inference-server/server">github.com/triton-inference-server/server</a>
+    </td>
+  </tr>
+
+
+    <tr>
+    <td>1</td>
+    <td>
+        TensorRT-LLM Backend
+    </td>
+    <td>
+        <a href="https://github.com/triton-inference-server/tensorrtllm_backend">github.com/triton-inference-server/tensorrtllm_backend</a>
+    </td>
+  </tr>
+
+    <tr>
+    <td>1</td>
+    <td>
+        The inflight_batcher_llm directory contains the C++ implementation of the backend supporting inflight
+                batching, paged attention and more.
+    </td>
+    <td>
+        <a href="https://github.com/triton-inference-server/TensorRT-LLM/tree/main/triton_backend/all_models/inflight_batcher_llm">github.com/triton-inference-server/TensorRT-LLM/tree/main/triton_backend/all_models/inflight_batcher_llm</a>
+    </td>
+  </tr>
+
+
+      <tr>
+    <td>1</td>
+    <td>
+        Programming for accelerators such as GPUs is critical for modern AI systems. This often means programming directly in proprietary low-level languages such as CUDA.
+    </td>
+    <td>
+        <a href="https://github.com/gpu-mode/Triton-Puzzles">github.com/gpu-mode/Triton-Puzzles</a>
+    </td>
+  </tr>
+
+</table>
+
+
+
+                <blockquote>
+<em>
+                </p>
+                Triton I found to be the most popular solution applicable to our task.
+            </p>
+            <p>
+                This is a good solution and unambiguously requires attention and detailed study, but I set it aside into
+                a separate development section because this implementation requires a radically different approach.
+            </p>
+</em>
+  </blockquote>
+
+
+            <h2 id="solution">Solution with a direct per-core streaming.</h2>
+            
+            <blockquote>Consider: As all high-level libraries and operating systems that introduce additional delays in
+                memory management, thread scheduling, and context switching. Replace them ( Сarefully! ) as much as possible. 
+            </blockquote>
+            <ul>
+                <li><strong>Dedicated, heavily optimized functions</strong>: Which directly perform mathematical and
+                    logical operations necessary for neural network inference (e.g., matrix multiplication,
+                    convolutions, activations).</li>
+            </ul>
+            <p>Provide Direct access to hardware:</p>
+            <ul>
+                <li>Select solutions on CUDA, OpenCL, or use specific SIMD/AVX instructions. Any (at this stage)
+                    solution that directly interacts with the processor architecture or accelerator.</li>
+                <li><strong>Optimize parallelism</strong>: Distribute operations correctly so they utilize all available
+                    compute resources to maximum capacity.</li>
+                <li><strong>Manage memory efficiently</strong>: Organize data in memory such that minimize access to
+                    slow external memory and maximize usage of fast cache memory.</li>
+                <li><strong>Use architecture specifics:</strong> Use the fastest processor instructions for performing
+                    specific mathematical operations. Ensure calculations are done in minimum possible time.</li>
+            </ul>
+
+
+            <h2 id="custom-kernel">Extension and features for Custom Kernel Implementation</h2>
+
+            <p>Of course, a project on optimization using hardware-oriented programming (Kernel Optimization) in context
+                of AI-inference often focuses on quantization, compression and high-performance computing (HPC). GEMM.
+            </p>
+            <blockquote>CUDA Kernel Optimization for INT8 GEMM in LLM Inference: This is also excellent as a solution
+                due to math and quantization. Quality let's us put aside just focus provide ML developers an additional
+                optimization tool.</blockquote>
+            <p>I will consider combinations with emphasis on throughput and batching methods:</p>
+            <ul>
+                <li>High-Performance LLM Inference with Continuous Batching and Kernel Tuning</li>
+                <li>PagedAttention Kernel Implementation</li>
+                <li>Memory &amp; Asynchronous Scheduling Optimization for PagedAttention</li>
+            </ul>
+      
+
+            </blockquote>
+
+
+        </div>
+
+
+
+      <div class="container">
+
+
+
+    <!-- Main Container Mimicking GitHub README View -->
+    <div class="readme-box">
+        <div class="readme-header">
+            <svg style="margin-right: 8px;" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
+                <path d="M0 1.75C0 .783.783 0 1.75 0h12.5C15.217 0 16 .783 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25Zm10.5 4.5a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1-.75-.75Zm-9 0a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75Zm0 4a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75Z"></path>
+            </svg>
+            Project Outline
+        </div>
+        
+        <div class="readme-content">
+            <!-- <h1>Project Outline</h1> -->
+            
+            <h2>Methodologies</h2>
+            <div class="blockquote">
+                <strong>Hardware-Aware & Mathematical Approach</strong><br>
+                Rather than simply executing a model through a standard framework, we will operate at the kernel level.
+            </div>
+
+            <h3>Stage 1: Model Optimization (Quantization)</h3>
+            <ul>
+                <li><strong>Action:</strong> Apply quantization of both weights and activations from <code>FP32</code> (32-bit floating-point) to <code>INT8</code> (8-bit integer).</li>
+                <li><strong>Goal:</strong> Reduce the model size by fourfold and decrease the volume of data that needs to be moved in memory.</li>
+            </ul>
+
+            <h3>Stage 2: Kernel Development</h3>
+            <ul>
+                <li><strong>Action:</strong> Implement low-level custom kernels (e.g., using <code>CUDA</code>/<code>Triton</code> for GPU or <code>AVX-512</code> intrinsics for CPU).</li>
+                <li>
+                    <strong>What We Optimize:</strong> Key inference mathematical operations include:
+                    <ul>
+                        <li><strong>Matrix Multiplication (GEMM):</strong> Develop a specialized algorithm that leverages quantization-specific techniques, such as Quantized Matrix Multiplication.</li>
+                        <li><strong>Activations and Functions:</strong> Embed optimized implementations of activation functions (<code>ReLU</code>, <code>Sigmoid</code>) directly within the kernel, avoiding calls to high-level guest libraries.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Stage 3: Scheduling and Thread Management</h3>
+            <ul>
+                <li><strong>Action:</strong> Develop a mechanism for orchestrating the execution of these kernels. Instead of relying on the OS's general scheduler, we will establish direct thread bindings to available compute units (e.g., mapping matrix multiplication operations directly to GPU tensor cores).</li>
+                <li><strong>Goal:</strong> Ensure data does not remain idle while awaiting context switches between operations.</li>
+            </ul>
+
+            <h2>Technology Stack</h2>
+            <ul class="tag-list">
+                <li class="tag"><strong>Frameworks:</strong> NVIDIA CUDA (Triton / PTX) or OpenCL</li>
+                <li class="tag"><strong>Implementation:</strong> CUDA C++ / Native Assembly</li>
+                <li class="tag"><strong>Quantization:</strong> ONNX Runtime / TensorFlow Lite Custom Tools</li>
+            </ul>
+
+            <h2>Expected Outcomes</h2>
+    
+             <ul>
+                <li><strong>Latency Reduction:</strong> The time required to execute a full inference pass decreases by <code>65% to 80%</code> compared to the standard unoptimized implementation (resulting in a 3x–4x throughput speedup).</li>
+                <li><strong>Memory Consumption Reduction:</strong> Model size and computation buffers shrink <code>3.8 to 4</code> times thanks to <code>INT8</code> quantization and aggressive weight memory reuse.</li>
+                <li><strong>Improved Resource Utilization:</strong> Maximal occupancy of computational units (GPU/CPU) during inference, with minimized idle periods.</li>
+            </ul>
+
+            <h2>Summary Example</h2>
+
+
+<p>
+    This project exemplifies "performance squeezing at the kernel level," as it demands not merely invoking a high-level model.forward() function but rewriting the mathematical logic of inference to align perfectly with hardware capabilities (processor architecture) and data-specific characteristics (quantization).
+</p>
+
+            </div>
+            </div>
+            </div>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        © <span id="year"></span> Logic HQ · Powered by GitHub Pages
+      </div>
+      <div class="footer-links">
+        <a href="/feed.xml">RSS</a>
+        <!-- <a href="https://github.com/" target="_blank" rel="noopener">Source</a> -->
+      </div>
+    </div>
+  </footer>
+
+  <script src="/public/static/js/mod-theme.js"></script>
+
+            <script>
+ 
+  </script>
+
+</body>
+
+</html>
