@@ -1170,7 +1170,7 @@ li::before {
         h1 {
             font-size: 2em;
             /* color: #24292e; */
-            border-bottom: 2px solid #eaecef;
+            /* border-bottom: 2px solid #eaecef; */
             padding-bottom: 10px;
             margin-top: 30px;
         }
@@ -1178,7 +1178,7 @@ li::before {
             font-size: 1.5em;
             /* color: #333; */
             margin-top: 25px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #292929;
             padding-bottom: 5px;
         }
         h3 {
