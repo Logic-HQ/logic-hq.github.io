@@ -32,10 +32,12 @@
             margin: 0 auto;
         } */
 
-            .container {
-            max-width: 980px;
-            margin: 0 auto;
-        }
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 15px; /* Adds a safety padding so elements don't hit the screen edge on mobile */
+}
+
 
    
     
@@ -349,3 +351,119 @@
             font-size: 14px;
             font-weight: 500;
         }
+
+         /* Actual Grid Element (Desktop: 3 columns) */
+        .container-about {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: #282c34;
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .card.text-card {
+            padding: 30px;
+        }
+        .card.image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card strong{
+            color: var(--text-title);
+        }
+
+        .card ul{
+    padding-left: -4em !important;
+    /* padding-right: 0em; */
+    margin-top: 0;
+    margin-bottom: 1px;
+        }
+        
+                .card ul, li{
+    padding-left: .0em;
+    padding-right: 0em;
+    margin-top: 0;
+    margin-bottom: 1px;
+        }
+
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a0a5b0;
+        }
+
+ 
+     
+/* Grid Layout Configuration based on template */
+.item-1  { grid-column: 1 / 2; grid-row: 1 / 2; }
+.item-2  { grid-column: 2 / 3; grid-row: 1 / 2; }
+.item-3  { grid-column: 3 / 4; grid-row: 1 / 2; }
+
+.item-4  { grid-column: 1 / 2; grid-row: 2 / 3; }
+.item-5  { grid-column: 2 / 4; grid-row: 2 / 3; }
+
+.item-6  { grid-column: 1 / 2; grid-row: 3 / 4; }
+.item-7  { grid-column: 2 / 3; grid-row: 3 / 4; }
+.item-8  { grid-column: 3 / 4; grid-row: 3 / 4; }
+
+.item-9  { grid-column: 1 / 2; grid-row: 4 / 5; }
+.item-10 { grid-column: 2 / 4; grid-row: 4 / 5; }
+
+
+/* Responsive Design (Tablets: 2 columns) */
+@media (max-width: 992px) {
+    /* CHANGED: Target the actual grid container */
+    .container-about {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .item-1, .item-2, .item-3, 
+    .item-4, .item-6, .item-7, 
+    .item-8, .item-9 { 
+        grid-column: auto; 
+        grid-row: auto; 
+    }
+    
+    .item-5, .item-10 { 
+        grid-column: span 2; 
+        grid-row: auto; 
+    }
+}
+
+/* Responsive Design (Mobile: 1 column) */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 0;
+    }
+    /* CHANGED: Target the actual grid container */
+    .container-about {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .item-5, .item-10 { 
+        grid-column: auto; 
+    }
+    
+    .card.text-card {
+        padding: 20px;
+    }
+}
+
+        
